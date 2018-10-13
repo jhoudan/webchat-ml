@@ -1,7 +1,6 @@
 let component = ReasonReact.statelessComponent("Expander");
 
 /* TODO add style props to dynamically pass style */
-/* TODO add show boolean props */
 
 let make = (~onClick, ~preferences: Types.preferences, _children) => {
   ...component,
