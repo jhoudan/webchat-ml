@@ -3,7 +3,18 @@ type t = {
   connector: string,
   chatId: string,
   channel: string,
-  fallbacked: bool,
+};
+
+module Encode = {
+  let conversation = (conversationObj) =>
+    Json.Encode.(
+      object_([
+        ("id", string(conversationObj.id)),
+        ("connector", string(conversationObj.connector)),
+        ("chatId", string(conversationObj.chatId)),
+        ("channel", string(conversationObj.channel)),
+      ])
+    );
 };
 
 module Decode {
@@ -18,7 +29,6 @@ module Decode {
       connector: json |> field("connector", string),
       chatId: json |> field("chatId", string),
       channel: json |> field("channel", string),
-      fallbacked: json |> field("fallbacked", bool),
     };
 
   let result = json =>
@@ -45,3 +55,24 @@ module Api {
     )
   };
 }
+
+let getOrCreate = (credentials: Types.credentials): Js.Promise.t(option(t)) => {
+  let conv = Dom.Storage.(localStorage |> getItem("conversation"))
+  |> Js.Option.map([@bs] (convString => convString |> Js.Json.string))
+  |> Js.Option.andThen([@bs] (json => json |> Decode.conversation |> (c => Some(c))))
+  
+  switch conv {
+    | Some(conv) => Js.Promise.resolve(Some(conv))
+    | None =>
+      Api.create(credentials)
+      |> Js.Promise.then_(convOpt => {
+        convOpt
+        |> Js.Option.map([@bs] (conv => {
+          let convString = conv |> Encode.conversation |> Json.stringify;
+          Dom.Storage.(localStorage |> setItem("conversation", convString));
+          conv
+        }))
+        |> Js.Promise.resolve
+      })
+  }
+};

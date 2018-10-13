@@ -9,24 +9,27 @@ let (channelid, token) =
   | None => (None, None)
   };
 
-/* TODO check if a conversation exists in localstorage */
-/*      -> if it's not the case, create it             */
-
 switch (channelid, token) {
 | (Some(channelid), Some(token)) =>
   let credentials: Types.credentials = {channelid, token};
   Js.Promise.(
     Preferences.Api.fetch(credentials)
     |> then_(preferences => {
-         switch (preferences) {
-         | Some(preferences) =>
-           /* TODO create the conversation */
-           ReactDOMRe.renderToElementWithId(
-             <App preferences credentials />,
-             "recast-webchat-div",
-           )
-         | None => Js.log("ERROR: Couldn't fetch the webchat preferences.")
-         };
+         let preferences = Js.Option.getExn(preferences);
+         Conversation.getOrCreate(credentials)
+         |> then_(conversation => resolve((preferences, conversation)));
+       })
+    |> then_(((preferences, _conversation)) => {
+         ReactDOMRe.renderToElementWithId(
+           <App preferences credentials />,
+           "recast-webchat-div",
+         );
+         resolve();
+       })
+    |> catch(_err => {
+         Js.log(
+           "Error while getting Channel's preferences or creating the conversation. Your credentials may are invalid",
+         );
          resolve();
        })
   )
