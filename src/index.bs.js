@@ -46,12 +46,12 @@ if (channelid !== undefined && token !== undefined) {
             ReactDOMRe.renderToElementWithId(ReasonReact.element(undefined, undefined, App$ReactTemplate.make(param[0], credentials, /* array */[])), "recast-webchat-div");
             return Promise.resolve(/* () */0);
           })).catch((function (err) {
-          console.log(err);
-          console.log("Error while getting Channel's preferences or creating the conversation. Your credentials may are invalid");
+          console.error("ERROR: could not get the Channel's preferences and/or create the conversation.", "Your credentials (channelid and/or token) are maybe invalid");
+          console.error(err);
           return Promise.resolve(/* () */0);
         }));
 } else {
-  console.log("ERROR: Could not find channelid and/or token credentials.");
+  console.error("ERROR: Could not find channelid and/or token credentials.");
 }
 
 export {
