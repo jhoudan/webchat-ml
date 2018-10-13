@@ -2,7 +2,7 @@
 
 import * as ReactDOMRe from "reason-react/src/ReactDOMRe.js";
 import * as ReasonReact from "reason-react/src/ReasonReact.js";
-import * as App$ReactTemplate from "./App.bs.js";
+import * as App$ReactTemplate from "./app.bs.js";
 import * as Preferences$ReactTemplate from "./models/preferences.bs.js";
 
 var credentials = /* record */[
