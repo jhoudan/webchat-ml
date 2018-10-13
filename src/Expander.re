@@ -2,7 +2,7 @@ let component = ReasonReact.statelessComponent("Expander");
 
 /* TODO add style props to dynamically pass style */
 
-module Styles = {
+module Style = {
   open Css;
 
   let expander =
@@ -60,7 +60,7 @@ let make = (~onClick, ~preferences: Types.preferences, _children) => {
   render: _self =>
     <div
       onClick
-      className=Styles.expander
+      className=Style.expander
       style={
         ReactDOMRe.Style.make(
           ~color=preferences.complementaryColor,
@@ -68,9 +68,9 @@ let make = (~onClick, ~preferences: Types.preferences, _children) => {
           (),
         )
       }>
-      <img className=Styles.expanderLogo src={preferences.expanderLogo} />
+      <img className=Style.expanderLogo src={preferences.expanderLogo} />
       {ReasonReact.string(preferences.expanderTitle)}
-      <div className=Styles.expanderOnboarding>
+      <div className=Style.expanderOnboarding>
         {ReasonReact.string(preferences.onboardingMessage)}
       </div>
     </div>,

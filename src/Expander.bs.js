@@ -111,7 +111,7 @@ var expanderOnboarding = Css.style(/* :: */[
       ]
     ]);
 
-var Styles = /* module */[
+var Style = /* module */[
   /* expander */expander,
   /* expanderLogo */expanderLogo,
   /* expanderOnboarding */expanderOnboarding
@@ -152,7 +152,7 @@ function make(onClick, preferences, _) {
 
 export {
   component ,
-  Styles ,
+  Style ,
   make ,
   
 }
