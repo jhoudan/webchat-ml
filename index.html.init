@@ -9,6 +9,11 @@
 
   <div id="recast-webchat-div" />
 
-  <script src="../dist/webchat.js"></script>
+  <script
+    src="./dist/webchat.js"
+    channelid="YOUR_CHANNEL_ID",
+    token="YOUR_CHANNEL_TOKEN",
+    id="recast-webchat"
+    ></script>
 </body>
 </html>
