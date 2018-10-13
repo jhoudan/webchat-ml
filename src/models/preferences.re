@@ -62,7 +62,7 @@ module Api {
       )
       |> then_(Fetch.Response.json)
       |> then_(json => json |> Decode.result |> (result => Some(result.results)) |> resolve)
-      |> catch(err => resolve(None))
+      |> catch(_err => resolve(None))
     );
   }
 };

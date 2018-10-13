@@ -3,7 +3,7 @@
 import * as ReactDOMRe from "reason-react/src/ReactDOMRe.js";
 import * as ReasonReact from "reason-react/src/ReasonReact.js";
 import * as Js_primitive from "bs-platform/lib/es6/js_primitive.js";
-import * as App$ReactTemplate from "./app.bs.js";
+import * as App$ReactTemplate from "./containers/app.bs.js";
 import * as Preferences$ReactTemplate from "./models/preferences.bs.js";
 
 var match = document.getElementById("recast-webchat");

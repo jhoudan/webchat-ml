@@ -4,7 +4,7 @@ import * as Css from "bs-css/src/Css.js";
 import * as React from "react";
 import * as Pervasives from "bs-platform/lib/es6/pervasives.js";
 import * as ReasonReact from "reason-react/src/ReasonReact.js";
-import * as Header$ReactTemplate from "./header.bs.js";
+import * as Header$ReactTemplate from "../components/header.bs.js";
 
 var chat = Css.style(/* :: */[
       Css.position(Css.fixed),

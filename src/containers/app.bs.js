@@ -7,7 +7,7 @@ import * as React from "react";
 import * as Pervasives from "bs-platform/lib/es6/pervasives.js";
 import * as ReasonReact from "reason-react/src/ReasonReact.js";
 import * as Chat$ReactTemplate from "./chat.bs.js";
-import * as Expander$ReactTemplate from "./expander.bs.js";
+import * as Expander$ReactTemplate from "../components/expander.bs.js";
 
 var app = Css.style(/* :: */[
       Css.zIndex(2147483647),
