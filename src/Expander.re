@@ -55,7 +55,7 @@ let component = ReasonReact.statelessComponent("Expander");
 
 /* TODO add style props to dynamically pass style */
 
-let make = (~onClick, ~preferences: Types.preferences, _children) => {
+let make = (~onClick, ~preferences: Preferences.t, _children) => {
   ...component,
   render: _self =>
     <div

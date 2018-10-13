@@ -23,7 +23,7 @@ let component = ReasonReact.statelessComponent("Header");
 /* TODO add logoStyle props to dynamically pass style */
 /*      <img className="RecastAppHeader--logo" src={preferences.headerLogo} style={logoStyle} /> */
 
-let make = (~onClick, ~preferences: Types.preferences, _children) => {
+let make = (~onClick, ~preferences: Preferences.t, _children) => {
   ...component,
   render: _self =>
     <div

@@ -1,19 +1,19 @@
-let preferences: Types.preferences = {
-  accentColor: "#E05A47",
-  complementaryColor: "#FFFFFF",
-  botMessageColor: "#707070",
-  botMessageBackgroundColor: "#F6F6F6",
-  backgroundColor: "#FFFFFF",
-  headerLogo: "https://cdn.recast.ai/webchat/webchat-logo.svg",
-  headerTitle: "My awesome chatbot",
-  botPicture: "https://cdn.recast.ai/webchat/bot.png",
-  userPicture: "https://cdn.recast.ai/webchat/user.png",
-  onboardingMessage: "Come speak to me!",
-  expanderLogo: "https://cdn.recast.ai/webchat/webchat-logo.svg",
-  expanderTitle: "Click on me!",
-  conversationTimeToLive: 24,
-  openingType: "never",
-  welcomeMessage: "Hello world !",
+let credentials: Types.credentials = {
+  channelid: "3080b46d-97b5-43e9-8f5b-762bade246a1",
+  token: "4032443053b639457becb97af522eac9",
 };
 
-ReactDOMRe.renderToElementWithId(<App preferences />, "recast-webchat-div");
+Js.Promise.(
+  Preferences.Api.fetch(credentials)
+  |> then_(preferences => {
+       switch (preferences) {
+       | Some(preferences) =>
+         ReactDOMRe.renderToElementWithId(
+           <App preferences credentials />,
+           "recast-webchat-div",
+         )
+       | None => Js.log("ERROR: Couldn't fetch the webchat preferences.")
+       };
+       resolve();
+     })
+);

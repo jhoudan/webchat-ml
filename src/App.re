@@ -15,7 +15,8 @@ type action =
 
 let component = ReasonReact.reducerComponent("App");
 
-let make = (~preferences: Types.preferences, _children) => {
+let make =
+    (~preferences: Preferences.t, ~credentials: Types.credentials, _children) => {
   ...component,
   initialState: () => {isExpanded: false},
   reducer: (Toggle, state) =>

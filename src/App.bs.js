@@ -21,7 +21,7 @@ var Style = /* module */[/* app */app];
 
 var component = ReasonReact.reducerComponent("App");
 
-function make(preferences, _) {
+function make(preferences, _, _$1) {
   return /* record */[
           /* debugName */component[/* debugName */0],
           /* reactClassInternal */component[/* reactClassInternal */1],

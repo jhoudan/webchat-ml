@@ -3,29 +3,24 @@
 import * as ReactDOMRe from "reason-react/src/ReactDOMRe.js";
 import * as ReasonReact from "reason-react/src/ReasonReact.js";
 import * as App$ReactTemplate from "./App.bs.js";
+import * as Preferences$ReactTemplate from "./models/preferences.bs.js";
 
-var preferences = /* record */[
-  /* accentColor */"#E05A47",
-  /* complementaryColor */"#FFFFFF",
-  /* botMessageColor */"#707070",
-  /* botMessageBackgroundColor */"#F6F6F6",
-  /* backgroundColor */"#FFFFFF",
-  /* headerLogo */"https://cdn.recast.ai/webchat/webchat-logo.svg",
-  /* headerTitle */"My awesome chatbot",
-  /* botPicture */"https://cdn.recast.ai/webchat/bot.png",
-  /* userPicture */"https://cdn.recast.ai/webchat/user.png",
-  /* onboardingMessage */"Come speak to me!",
-  /* expanderLogo */"https://cdn.recast.ai/webchat/webchat-logo.svg",
-  /* expanderTitle */"Click on me!",
-  /* conversationTimeToLive */24,
-  /* openingType */"never",
-  /* welcomeMessage */"Hello world !"
+var credentials = /* record */[
+  /* token */"4032443053b639457becb97af522eac9",
+  /* channelid */"3080b46d-97b5-43e9-8f5b-762bade246a1"
 ];
 
-ReactDOMRe.renderToElementWithId(ReasonReact.element(undefined, undefined, App$ReactTemplate.make(preferences, /* array */[])), "recast-webchat-div");
+Preferences$ReactTemplate.Api[/* fetch */0](credentials).then((function (preferences) {
+        if (preferences !== undefined) {
+          ReactDOMRe.renderToElementWithId(ReasonReact.element(undefined, undefined, App$ReactTemplate.make(preferences, credentials, /* array */[])), "recast-webchat-div");
+        } else {
+          console.log("ERROR: Couldn't fetch the webchat preferences.");
+        }
+        return Promise.resolve(/* () */0);
+      }));
 
 export {
-  preferences ,
+  credentials ,
   
 }
 /*  Not a pure module */

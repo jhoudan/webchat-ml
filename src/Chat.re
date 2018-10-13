@@ -18,7 +18,7 @@ type action =
 
 let component = ReasonReact.reducerComponent("Chat");
 
-let make = (~preferences: Types.preferences, ~closeWebchat, _children) => {
+let make = (~preferences: Preferences.t, ~closeWebchat, _children) => {
   ...component,
   initialState: () => {showSlogan: true},
   reducer: ((), _state) => ReasonReact.NoUpdate,
