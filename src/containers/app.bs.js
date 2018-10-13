@@ -4,8 +4,10 @@ import * as Css from "bs-css/src/Css.js";
 import * as Block from "bs-platform/lib/es6/block.js";
 import * as Curry from "bs-platform/lib/es6/curry.js";
 import * as React from "react";
+import * as Js_option from "bs-platform/lib/es6/js_option.js";
 import * as Pervasives from "bs-platform/lib/es6/pervasives.js";
 import * as ReasonReact from "reason-react/src/ReasonReact.js";
+import * as Js_primitive from "bs-platform/lib/es6/js_primitive.js";
 import * as Chat$ReactTemplate from "./chat.bs.js";
 import * as Expander$ReactTemplate from "../components/expander.bs.js";
 
@@ -27,8 +29,17 @@ function make(preferences, _, _$1) {
           /* reactClassInternal */component[/* reactClassInternal */1],
           /* handedOffState */component[/* handedOffState */2],
           /* willReceiveProps */component[/* willReceiveProps */3],
-          /* didMount */component[/* didMount */4],
-          /* didUpdate */component[/* didUpdate */5],
+          /* didMount */(function (self) {
+              if (self[/* state */1][/* isExpanded */0]) {
+                return Curry._1(self[/* send */3], /* Toggle */0);
+              } else {
+                return 0;
+              }
+            }),
+          /* didUpdate */(function (param) {
+              localStorage.setItem("isExpanded", Pervasives.string_of_bool(param[/* newSelf */1][/* state */1][/* isExpanded */0]));
+              return /* () */0;
+            }),
           /* willUnmount */component[/* willUnmount */6],
           /* willUpdate */component[/* willUpdate */7],
           /* shouldUpdate */component[/* shouldUpdate */8],
@@ -43,7 +54,19 @@ function make(preferences, _, _$1) {
                                     }), preferences, /* array */[])));
             }),
           /* initialState */(function () {
-              return /* record */[/* isExpanded */false];
+              var match = preferences[/* openingType */13];
+              var isExpanded;
+              switch (match) {
+                case "always" : 
+                    isExpanded = true;
+                    break;
+                case "memory" : 
+                    isExpanded = Pervasives.bool_of_string(Js_option.getWithDefault("false", Js_primitive.null_to_opt(localStorage.getItem("isExpanded"))));
+                    break;
+                default:
+                  isExpanded = false;
+              }
+              return /* record */[/* isExpanded */isExpanded];
             }),
           /* retainedProps */component[/* retainedProps */11],
           /* reducer */(function (_, state) {

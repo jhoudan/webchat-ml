@@ -28,8 +28,8 @@ switch (channelid, token) {
        })
     |> catch(err => {
          Js.Console.errorMany([|
-           "ERROR: could not get the Channel's preferences and/or create the conversation.",
-           "Your credentials (channelid and/or token) are maybe invalid",
+           "ERROR: could not get the channel's preferences and/or create the conversation.",
+           "Your credentials (channelid and/or token) are maybe invalid.",
          |]);
          Js.Console.error(err);
          resolve();
@@ -37,8 +37,5 @@ switch (channelid, token) {
   )
   |> ignore;
   ();
-| _ =>
-  Js.Console.error(
-    "ERROR: Could not find channelid and/or token credentials.",
-  )
+| _ => Js.Console.error("ERROR: missing channelid and/or token field(s).")
 };
