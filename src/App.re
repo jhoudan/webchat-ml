@@ -1,10 +1,3 @@
-type state = {isExpanded: bool};
-
-type action =
-  | Toggle;
-
-let component = ReasonReact.reducerComponent("App");
-
 module Style = {
   open Css;
 
@@ -14,6 +7,13 @@ module Style = {
       fontFamily("Roboto, Helvetica, sans-serif"),
     ]);
 };
+
+type state = {isExpanded: bool};
+
+type action =
+  | Toggle;
+
+let component = ReasonReact.reducerComponent("App");
 
 let make = (~preferences: Types.preferences, _children) => {
   ...component,
@@ -25,7 +25,7 @@ let make = (~preferences: Types.preferences, _children) => {
       {ReasonReact.string(string_of_bool(self.state.isExpanded))}
       {
         self.state.isExpanded ?
-          <Chat preferences /> :
+          <Chat preferences closeWebchat={_event => self.send(Toggle)} /> :
           <Expander preferences onClick={_event => self.send(Toggle)} />
       }
     </div>,

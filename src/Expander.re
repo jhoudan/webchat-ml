@@ -1,7 +1,3 @@
-let component = ReasonReact.statelessComponent("Expander");
-
-/* TODO add style props to dynamically pass style */
-
 module Style = {
   open Css;
 
@@ -54,6 +50,10 @@ module Style = {
       ]),
     ]);
 };
+
+let component = ReasonReact.statelessComponent("Expander");
+
+/* TODO add style props to dynamically pass style */
 
 let make = (~onClick, ~preferences: Types.preferences, _children) => {
   ...component,

@@ -9,8 +9,6 @@ import * as ReasonReact from "reason-react/src/ReasonReact.js";
 import * as Chat$ReactTemplate from "./Chat.bs.js";
 import * as Expander$ReactTemplate from "./Expander.bs.js";
 
-var component = ReasonReact.reducerComponent("App");
-
 var app = Css.style(/* :: */[
       Css.zIndex(2147483647),
       /* :: */[
@@ -20,6 +18,8 @@ var app = Css.style(/* :: */[
     ]);
 
 var Style = /* module */[/* app */app];
+
+var component = ReasonReact.reducerComponent("App");
 
 function make(preferences, _) {
   return /* record */[
@@ -36,7 +36,9 @@ function make(preferences, _) {
               var match = self[/* state */1][/* isExpanded */0];
               return React.createElement("div", {
                           className: app
-                        }, Pervasives.string_of_bool(self[/* state */1][/* isExpanded */0]), match ? ReasonReact.element(undefined, undefined, Chat$ReactTemplate.make(preferences, /* array */[])) : ReasonReact.element(undefined, undefined, Expander$ReactTemplate.make((function () {
+                        }, Pervasives.string_of_bool(self[/* state */1][/* isExpanded */0]), match ? ReasonReact.element(undefined, undefined, Chat$ReactTemplate.make(preferences, (function () {
+                                      return Curry._1(self[/* send */3], /* Toggle */0);
+                                    }), /* array */[])) : ReasonReact.element(undefined, undefined, Expander$ReactTemplate.make((function () {
                                       return Curry._1(self[/* send */3], /* Toggle */0);
                                     }), preferences, /* array */[])));
             }),
@@ -52,9 +54,9 @@ function make(preferences, _) {
 }
 
 export {
-  component ,
   Style ,
+  component ,
   make ,
   
 }
-/* component Not a pure module */
+/* app Not a pure module */

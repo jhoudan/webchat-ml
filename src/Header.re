@@ -1,3 +1,23 @@
+module Style = {
+  open Css;
+
+  let header =
+    style([display(flexBox), alignItems(center), borderRadius(px(0))]);
+
+  let headerLogo =
+    style([height(px(50)), width(px(50)), padding(px(10))]);
+
+  let headerTitle = style([fontWeight(700), flexGrow(1)]);
+
+  let headerButton =
+    style([
+      cursor(`pointer),
+      margin(rem(1.)),
+      width(px(15)),
+      height(px(15)),
+    ]);
+};
+
 let component = ReasonReact.statelessComponent("Header");
 
 /* TODO add logoStyle props to dynamically pass style */
@@ -7,7 +27,7 @@ let make = (~onClick, ~preferences: Types.preferences, _children) => {
   ...component,
   render: _self =>
     <div
-      className="RecastAppHeader"
+      className=Style.header
       style={
         ReactDOMRe.Style.make(
           ~color=preferences.complementaryColor,
@@ -15,12 +35,12 @@ let make = (~onClick, ~preferences: Types.preferences, _children) => {
           (),
         )
       }>
-      <img src={preferences.headerLogo} className="RecastAppHeader--logo" />
-      <p className="RecastAppHeader--title">
+      <img src={preferences.headerLogo} className=Style.headerLogo />
+      <p className=Style.headerTitle>
         {ReasonReact.string(preferences.headerTitle)}
       </p>
-      <button onClick className="RecastAppHeader--btn">
+      <div onClick className=Style.headerButton>
         <img src="https://cdn.recast.ai/webchat/close.svg" />
-      </button>
+      </div>
     </div>,
 };

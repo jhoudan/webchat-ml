@@ -4,8 +4,6 @@ import * as Css from "bs-css/src/Css.js";
 import * as React from "react";
 import * as ReasonReact from "reason-react/src/ReasonReact.js";
 
-var component = ReasonReact.statelessComponent("Expander");
-
 var expander = Css.style(/* :: */[
       Css.position(Css.fixed),
       /* :: */[
@@ -117,6 +115,8 @@ var Style = /* module */[
   /* expanderOnboarding */expanderOnboarding
 ];
 
+var component = ReasonReact.statelessComponent("Expander");
+
 function make(onClick, preferences, _) {
   return /* record */[
           /* debugName */component[/* debugName */0],
@@ -151,9 +151,9 @@ function make(onClick, preferences, _) {
 }
 
 export {
-  component ,
   Style ,
+  component ,
   make ,
   
 }
-/* component Not a pure module */
+/* expander Not a pure module */
