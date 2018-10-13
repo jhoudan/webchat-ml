@@ -2,25 +2,51 @@
 
 import * as ReactDOMRe from "reason-react/src/ReactDOMRe.js";
 import * as ReasonReact from "reason-react/src/ReasonReact.js";
+import * as Js_primitive from "bs-platform/lib/es6/js_primitive.js";
 import * as App$ReactTemplate from "./app.bs.js";
 import * as Preferences$ReactTemplate from "./models/preferences.bs.js";
 
-var credentials = /* record */[
-  /* token */"4032443053b639457becb97af522eac9",
-  /* channelid */"3080b46d-97b5-43e9-8f5b-762bade246a1"
-];
+var match = document.getElementById("recast-webchat");
 
-Preferences$ReactTemplate.Api[/* fetch */0](credentials).then((function (preferences) {
-        if (preferences !== undefined) {
-          ReactDOMRe.renderToElementWithId(ReasonReact.element(undefined, undefined, App$ReactTemplate.make(preferences, credentials, /* array */[])), "recast-webchat-div");
-        } else {
-          console.log("ERROR: Couldn't fetch the webchat preferences.");
-        }
-        return Promise.resolve(/* () */0);
-      }));
+var match$1;
+
+if (match !== undefined) {
+  var element = Js_primitive.valFromOption(match);
+  match$1 = /* tuple */[
+    Js_primitive.nullable_to_opt(element.getAttribute("channelid")),
+    Js_primitive.nullable_to_opt(element.getAttribute("token"))
+  ];
+} else {
+  match$1 = /* tuple */[
+    undefined,
+    undefined
+  ];
+}
+
+var token = match$1[1];
+
+var channelid = match$1[0];
+
+if (channelid !== undefined && token !== undefined) {
+  var credentials = /* record */[
+    /* token */token,
+    /* channelid */channelid
+  ];
+  Preferences$ReactTemplate.Api[/* fetch */0](credentials).then((function (preferences) {
+          if (preferences !== undefined) {
+            ReactDOMRe.renderToElementWithId(ReasonReact.element(undefined, undefined, App$ReactTemplate.make(preferences, credentials, /* array */[])), "recast-webchat-div");
+          } else {
+            console.log("ERROR: Couldn't fetch the webchat preferences.");
+          }
+          return Promise.resolve(/* () */0);
+        }));
+} else {
+  console.log("ERROR: Could not find channelid and/or token credentials.");
+}
 
 export {
-  credentials ,
+  channelid ,
+  token ,
   
 }
-/*  Not a pure module */
+/* match Not a pure module */
