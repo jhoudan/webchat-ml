@@ -9,6 +9,9 @@ let (channelid, token) =
   | None => (None, None)
   };
 
+/* TODO check if a conversation exists in localstorage */
+/*      -> if it's not the case, create it             */
+
 switch (channelid, token) {
 | (Some(channelid), Some(token)) =>
   let credentials: Types.credentials = {channelid, token};
@@ -17,6 +20,7 @@ switch (channelid, token) {
     |> then_(preferences => {
          switch (preferences) {
          | Some(preferences) =>
+           /* TODO create the conversation */
            ReactDOMRe.renderToElementWithId(
              <App preferences credentials />,
              "recast-webchat-div",

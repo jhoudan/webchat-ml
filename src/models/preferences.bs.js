@@ -38,8 +38,7 @@ var Decode = /* module */[
 ];
 
 function fetch$1(param) {
-  var url = "https://api.recast.ai/connect/v1/webhook/" + (String(param[/* channelid */1]) + "/preferences");
-  return fetch(url, Fetch.RequestInit[/* make */0](undefined, {
+  return fetch("https://api.recast.ai/connect/v1/webhook/" + (String(param[/* channelid */1]) + "/preferences"), Fetch.RequestInit[/* make */0](undefined, {
                           Authorization: param[/* token */0]
                         }, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(/* () */0)).then((function (prim) {
                     return prim.json();

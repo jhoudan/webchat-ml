@@ -50,11 +50,10 @@ module Decode {
 }
 
 module Api {
-  let fetch = ({channelid, token}: Types.credentials) => {
-    let url = {j|https://api.recast.ai/connect/v1/webhook/$channelid/preferences|j};
+  let fetch = ({channelid, token}: Types.credentials): Js.Promise.t(option(t)) => {
     Js.Promise.(
       Fetch.fetchWithInit(
-        url,
+        {j|https://api.recast.ai/connect/v1/webhook/$channelid/preferences|j},
         Fetch.RequestInit.make(
           ~headers=Fetch.HeadersInit.make({"Authorization": token}),
           ()
@@ -63,6 +62,6 @@ module Api {
       |> then_(Fetch.Response.json)
       |> then_(json => json |> Decode.result |> (result => Some(result.results)) |> resolve)
       |> catch(_err => resolve(None))
-    );
-  }
+    )
+  };
 };
