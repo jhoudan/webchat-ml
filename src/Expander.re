@@ -5,28 +5,24 @@ let component = ReasonReact.statelessComponent("Expander");
 
 let make = (~onClick, ~preferences: Types.preferences, _children) => {
   ...component,
-    render: (_self) => {
-      <div
-        onClick
-        className="RecastAppHeaderExpander"
-        style=(
-          ReactDOMRe.Style.make(
-            ~color=preferences.complementaryColor,
-            ~backgroundColor=preferences.accentColor,
-            ()
-          )
+  render: _self =>
+    <div
+      onClick
+      className="RecastAppHeaderExpander"
+      style={
+        ReactDOMRe.Style.make(
+          ~color=preferences.complementaryColor,
+          ~backgroundColor=preferences.accentColor,
+          (),
         )
-      >
-        <img
-          className="RecastAppExpander--logo"
-          src={preferences.expanderLogo}
-        />
-
-        (ReasonReact.string(preferences.expanderTitle))
-
-        <div className="RecastAppExpander--onboarding">
-          (ReasonReact.string(preferences.onboardingMessage))
-        </div>
+      }>
+      <img
+        className="RecastAppExpander--logo"
+        src={preferences.expanderLogo}
+      />
+      {ReasonReact.string(preferences.expanderTitle)}
+      <div className="RecastAppExpander--onboarding">
+        {ReasonReact.string(preferences.onboardingMessage)}
       </div>
-    }
-}
+    </div>,
+};

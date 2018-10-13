@@ -16,6 +16,4 @@ let preferences: Types.preferences = {
   welcomeMessage: "Hello world !",
 };
 
-ReactDOMRe.renderToElementWithId(
-  <App preferences />,
-  "recast-webchat-div");
+ReactDOMRe.renderToElementWithId(<App preferences />, "recast-webchat-div");

@@ -14,5 +14,4 @@ type preferences = {
   conversationTimeToLive: int,
   openingType: string,
   welcomeMessage: string,
-}
-
+};
