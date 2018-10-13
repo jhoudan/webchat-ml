@@ -56,10 +56,21 @@ module Api {
   };
 }
 
+let getFromLocalStorage = (): option(t) => {
+  Dom.Storage.(localStorage |> getItem("conversation"))
+  |> Js.Option.andThen([@bs] (convString => convString |> Json.parse))
+  |> Js.Option.andThen([@bs] (json => json |> Decode.conversation |>  (c => Some(c))))
+};
+
 let getOrCreate = (credentials: Types.credentials): Js.Promise.t(option(t)) => {
-  let conv = Dom.Storage.(localStorage |> getItem("conversation"))
-  |> Js.Option.map([@bs] (convString => convString |> Js.Json.string))
-  |> Js.Option.andThen([@bs] (json => json |> Decode.conversation |> (c => Some(c))))
+  let conv = getFromLocalStorage()
+  |> Js.Option.andThen([@bs] (conversation => {
+    if (conversation.channel == credentials.channelid) {
+      Some(conversation)
+    } else {
+      None
+    }
+  }))
   
   switch conv {
     | Some(conv) => Js.Promise.resolve(Some(conv))

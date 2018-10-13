@@ -45,7 +45,8 @@ if (channelid !== undefined && token !== undefined) {
             })).then((function (param) {
             ReactDOMRe.renderToElementWithId(ReasonReact.element(undefined, undefined, App$ReactTemplate.make(param[0], credentials, /* array */[])), "recast-webchat-div");
             return Promise.resolve(/* () */0);
-          })).catch((function () {
+          })).catch((function (err) {
+          console.log(err);
           console.log("Error while getting Channel's preferences or creating the conversation. Your credentials may are invalid");
           return Promise.resolve(/* () */0);
         }));

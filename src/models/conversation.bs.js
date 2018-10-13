@@ -73,12 +73,19 @@ function create(param) {
 
 var Api = /* module */[/* create */create];
 
+function getFromLocalStorage() {
+  return Js_option.andThen((function (json) {
+                return conversation$1(json);
+              }), Js_option.andThen(Json.parse, Js_primitive.null_to_opt(localStorage.getItem("conversation"))));
+}
+
 function getOrCreate(credentials) {
-  var conv = Js_option.andThen((function (json) {
-          return conversation$1(json);
-        }), Js_option.map((function (convString) {
-              return convString;
-            }), Js_primitive.null_to_opt(localStorage.getItem("conversation"))));
+  var conv = Js_option.andThen((function (conversation) {
+          if (conversation[/* channel */3] === credentials[/* channelid */1]) {
+            return conversation;
+          }
+          
+        }), getFromLocalStorage(/* () */0));
   if (conv !== undefined) {
     return Promise.resolve(conv);
   } else {
@@ -96,6 +103,7 @@ export {
   Encode ,
   Decode ,
   Api ,
+  getFromLocalStorage ,
   getOrCreate ,
   
 }

@@ -26,7 +26,8 @@ switch (channelid, token) {
          );
          resolve();
        })
-    |> catch(_err => {
+    |> catch(err => {
+         Js.log(err);
          Js.log(
            "Error while getting Channel's preferences or creating the conversation. Your credentials may are invalid",
          );
