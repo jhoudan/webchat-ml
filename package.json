@@ -16,6 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "bs-css": "^7.2.0",
+    "bs-fetch": "^0.3.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "reason-react": ">=0.4.0"
