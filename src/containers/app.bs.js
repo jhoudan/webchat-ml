@@ -47,7 +47,7 @@ function make(preferences, credentials, conversation, _) {
               var match = self[/* state */1][/* isExpanded */0];
               return React.createElement("div", {
                           className: app
-                        }, Pervasives.string_of_bool(self[/* state */1][/* isExpanded */0]), match ? ReasonReact.element(undefined, undefined, Chat$ReactTemplate.make(preferences, credentials, conversation, undefined, (function () {
+                        }, match ? ReasonReact.element(undefined, undefined, Chat$ReactTemplate.make(preferences, credentials, conversation, undefined, (function () {
                                       return Curry._1(self[/* send */3], /* Toggle */0);
                                     }), /* array */[])) : ReasonReact.element(undefined, undefined, Expander$ReactTemplate.make((function () {
                                       return Curry._1(self[/* send */3], /* Toggle */0);

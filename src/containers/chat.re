@@ -93,9 +93,8 @@ let make =
         ),
       )
     },
-  render: self =>
+  render: _self =>
     <div className=Style.chat>
       <Header preferences onClick=closeWebchat />
-      {ReasonReact.string(string_of_bool(self.state.showSlogan))}
     </div>,
 };

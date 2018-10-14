@@ -53,7 +53,6 @@ let make =
     ReasonReact.Update({isExpanded: !state.isExpanded}),
   render: self =>
     <div className=Style.app>
-      {ReasonReact.string(string_of_bool(self.state.isExpanded))}
       {
         self.state.isExpanded ?
           <Chat
