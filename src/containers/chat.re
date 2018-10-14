@@ -4,10 +4,19 @@ module Style = {
   let chat =
     style([
       position(fixed),
-      top(px(0)),
-      left(px(0)),
       width(`percent(100.)),
       height(`percent(100.)),
+      media(
+        "only screen and (min-width: 420px) and (min-height: 575px)",
+        [
+          right(px(10)),
+          bottom(px(10)),
+          borderRadius(px(3)),
+          width(px(370)),
+          height(auto),
+          boxShadow(~x=px(0), ~y=px(5), ~blur=px(40), lightgrey),
+        ],
+      ),
     ]);
 };
 

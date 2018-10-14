@@ -16,21 +16,36 @@ var Messages$ReactTemplate = require("../models/messages.bs.js");
 var chat = Css.style(/* :: */[
       Css.position(Css.fixed),
       /* :: */[
-        Css.top(Css.px(0)),
+        Css.width(/* `percent */[
+              -119887163,
+              100
+            ]),
         /* :: */[
-          Css.left(Css.px(0)),
+          Css.height(/* `percent */[
+                -119887163,
+                100
+              ]),
           /* :: */[
-            Css.width(/* `percent */[
-                  -119887163,
-                  100
+            Css.media("only screen and (min-width: 420px) and (min-height: 575px)", /* :: */[
+                  Css.right(Css.px(10)),
+                  /* :: */[
+                    Css.bottom(Css.px(10)),
+                    /* :: */[
+                      Css.borderRadius(Css.px(3)),
+                      /* :: */[
+                        Css.width(Css.px(370)),
+                        /* :: */[
+                          Css.height(Css.auto),
+                          /* :: */[
+                            Css.boxShadow(Css.px(0), Css.px(5), Css.px(40), undefined, undefined, Css.lightgrey),
+                            /* [] */0
+                          ]
+                        ]
+                      ]
+                    ]
+                  ]
                 ]),
-            /* :: */[
-              Css.height(/* `percent */[
-                    -119887163,
-                    100
-                  ]),
-              /* [] */0
-            ]
+            /* [] */0
           ]
         ]
       ]
