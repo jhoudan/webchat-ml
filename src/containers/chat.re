@@ -81,14 +81,15 @@ let make =
       | SetTimeout(timeoutId) =>
         ReasonReact.Update({...state, timeoutId: Some(timeoutId)})
       | MessagesReceived(messages) =>
-        let index = Array.length(messages) - 1;
+        let lastMessage = messages[Array.length(messages) - 1];
         getLastMessage
-        |> Js.Option.map((. callback) => callback(messages[index]))
+        |> Js.Option.map((. callback) => callback(lastMessage))
         |> ignore;
 
         ReasonReact.Update({
           ...state,
           messages: Array.append(state.messages, messages),
+          lastMessageId: Some(lastMessage.id),
         });
       | Poll(id) =>
         ReasonReact.SideEffects(

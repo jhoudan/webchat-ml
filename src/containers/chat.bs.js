@@ -148,14 +148,14 @@ function make(preferences, credentials, conversation, getLastMessage, closeWebch
                               ]]);
                 case 2 : 
                     var messages = action[0];
-                    var index = messages.length - 1 | 0;
+                    var lastMessage = Caml_array.caml_array_get(messages, messages.length - 1 | 0);
                     Js_option.map((function (callback) {
-                            return Curry._1(callback, Caml_array.caml_array_get(messages, index));
+                            return Curry._1(callback, lastMessage);
                           }), getLastMessage);
                     return /* Update */Block.__(0, [/* record */[
                                 /* messages */$$Array.append(state[/* messages */0], messages),
                                 /* showSlogan */state[/* showSlogan */1],
-                                /* lastMessageId */state[/* lastMessageId */2],
+                                /* lastMessageId */lastMessage[/* id */0],
                                 /* timeoutId */state[/* timeoutId */3]
                               ]]);
                 
