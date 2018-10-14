@@ -16,7 +16,7 @@ type t = {
   welcomeMessage: option(string),
 };
 
-module Decode {
+module Decode = {
   type result = {
     results: t,
     message: string,
@@ -27,7 +27,8 @@ module Decode {
       accentColor: json |> field("accentColor", string),
       complementaryColor: json |> field("complementaryColor", string),
       botMessageColor: json |> field("botMessageColor", string),
-      botMessageBackgroundColor: json |> field("botMessageBackgroundColor", string),
+      botMessageBackgroundColor:
+        json |> field("botMessageBackgroundColor", string),
       backgroundColor: json |> field("backgroundColor", string),
       headerLogo: json |> field("headerLogo", string),
       headerTitle: json |> field("headerTitle", string),
@@ -41,27 +42,31 @@ module Decode {
       welcomeMessage: json |> optional(field("welcomeMessage", string)),
     };
 
-  let result = json => {
+  let result = json =>
     Json.Decode.{
       results: json |> field("results", preferences),
       message: json |> field("message", string),
     };
-  };
-}
+};
 
-module Api {
-  let fetch = ({channelid, token}: Types.credentials): Js.Promise.t(option(t)) => {
+module Api = {
+  let fetch =
+      ({channelid, token}: Types.credentials): Js.Promise.t(option(t)) =>
     Js.Promise.(
       Fetch.fetchWithInit(
         {j|https://api.recast.ai/connect/v1/webhook/$channelid/preferences|j},
         Fetch.RequestInit.make(
           ~headers=Fetch.HeadersInit.make({"Authorization": token}),
-          ()
+          (),
         ),
       )
       |> then_(Fetch.Response.json)
-      |> then_(json => json |> Decode.result |> (result => Some(result.results)) |> resolve)
+      |> then_(json =>
+           json
+           |> Decode.result
+           |> (result => Some(result.results))
+           |> resolve
+         )
       |> catch(_err => resolve(None))
-    )
-  };
+    );
 };

@@ -19,9 +19,9 @@ switch (channelid, token) {
          Conversation.getOrCreate(credentials)
          |> then_(conversation => resolve((preferences, conversation)));
        })
-    |> then_(((preferences, _conversation)) => {
+    |> then_(((preferences, conversation)) => {
          ReactDOMRe.renderToElementWithId(
-           <App preferences credentials />,
+           <App preferences credentials ?conversation />,
            "recast-webchat-div",
          );
          resolve();

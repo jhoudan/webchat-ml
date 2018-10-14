@@ -43,7 +43,7 @@ if (channelid !== undefined && token !== undefined) {
                                       ]);
                           }));
             })).then((function (param) {
-            ReactDOMRe.renderToElementWithId(ReasonReact.element(undefined, undefined, App$ReactTemplate.make(param[0], credentials, /* array */[])), "recast-webchat-div");
+            ReactDOMRe.renderToElementWithId(ReasonReact.element(undefined, undefined, App$ReactTemplate.make(param[0], credentials, param[1], /* array */[])), "recast-webchat-div");
             return Promise.resolve(/* () */0);
           })).catch((function (err) {
           console.error("ERROR: could not get the channel's preferences and/or create the conversation.", "Your credentials (channelid and/or token) are maybe invalid.");
