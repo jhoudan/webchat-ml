@@ -21,6 +21,14 @@ let component = ReasonReact.reducerComponent("Chat");
 let make = (~preferences: Preferences.t, ~closeWebchat, _children) => {
   ...component,
   initialState: () => {showSlogan: true},
+  didMount: (_self) => {
+    /* TODO if no props.sendMessagePromise and show, launch doMessagePolling */
+    ()
+  },
+  willReceiveProps: (self) => {
+    /* TODO if messages received and props.getLastMessage -> getLastMessage */
+    self.state
+  },
   reducer: ((), _state) => ReasonReact.NoUpdate,
   render: self =>
     <div className=Style.chat>
