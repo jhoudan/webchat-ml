@@ -13,6 +13,7 @@ module Style = {
           bottom(px(10)),
           borderRadius(px(3)),
           width(px(370)),
+          maxWidth(px(370)),
           height(auto),
           boxShadow(~x=px(0), ~y=px(5), ~blur=px(40), lightgrey),
         ],
@@ -105,6 +106,6 @@ let make =
   render: _self =>
     <div className=Style.chat>
       <Header preferences onClick=closeWebchat />
-      <Input onSubmit={() => ()} />
+      <Input onSubmit={value => Js.log(value)} />
     </div>,
 };

@@ -13,8 +13,24 @@ var Expander$ReactTemplate = require("../components/expander.bs.js");
 
 var app = Css.style(/* :: */[
       Css.zIndex(2147483647),
+      /* [] */0
+    ]);
+
+Css.$$global("#RecastWebchat *", /* :: */[
+      Css.boxSizing(Css.borderBox),
       /* :: */[
         Css.fontFamily("Roboto, Helvetica, sans-serif"),
+        /* [] */0
+      ]
+    ]);
+
+Css.$$global("#RecastWebchat img, #RecastWebchat svg", /* :: */[
+      Css.maxWidth(/* `percent */[
+            -119887163,
+            100
+          ]),
+      /* :: */[
+        Css.display(Css.block),
         /* [] */0
       ]
     ]);
@@ -46,7 +62,8 @@ function make(preferences, credentials, conversation, _) {
           /* render */(function (self) {
               var match = self[/* state */1][/* isExpanded */0];
               return React.createElement("div", {
-                          className: app
+                          className: app,
+                          id: "RecastWebchat"
                         }, match ? ReasonReact.element(undefined, undefined, Chat$ReactTemplate.make(preferences, credentials, conversation, undefined, (function () {
                                       return Curry._1(self[/* send */3], /* Toggle */0);
                                     }), /* array */[])) : ReasonReact.element(undefined, undefined, Expander$ReactTemplate.make((function () {

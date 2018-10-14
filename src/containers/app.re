@@ -1,11 +1,17 @@
 module Style = {
   open Css;
 
-  let app =
-    style([
-      zIndex(2147483647),
-      fontFamily("Roboto, Helvetica, sans-serif"),
-    ]);
+  let app = style([zIndex(2147483647)]);
+
+  global(
+    "#RecastWebchat *",
+    [boxSizing(borderBox), fontFamily("Roboto, Helvetica, sans-serif")],
+  );
+
+  global(
+    "#RecastWebchat img, #RecastWebchat svg",
+    [maxWidth(`percent(100.)), display(block)],
+  );
 };
 
 type state = {isExpanded: bool};
@@ -52,7 +58,7 @@ let make =
     /* TODO if clearMessageOnClose, remove the messages from the state and closing the webchat */
     ReasonReact.Update({isExpanded: !state.isExpanded}),
   render: self =>
-    <div className=Style.app>
+    <div className=Style.app id="RecastWebchat">
       {
         self.state.isExpanded ?
           <Chat

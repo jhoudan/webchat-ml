@@ -36,10 +36,13 @@ var chat = Css.style(/* :: */[
                       /* :: */[
                         Css.width(Css.px(370)),
                         /* :: */[
-                          Css.height(Css.auto),
+                          Css.maxWidth(Css.px(370)),
                           /* :: */[
-                            Css.boxShadow(Css.px(0), Css.px(5), Css.px(40), undefined, undefined, Css.lightgrey),
-                            /* [] */0
+                            Css.height(Css.auto),
+                            /* :: */[
+                              Css.boxShadow(Css.px(0), Css.px(5), Css.px(40), undefined, undefined, Css.lightgrey),
+                              /* [] */0
+                            ]
                           ]
                         ]
                       ]
@@ -86,7 +89,8 @@ function make(preferences, credentials, conversation, getLastMessage, closeWebch
           /* render */(function () {
               return React.createElement("div", {
                           className: chat
-                        }, ReasonReact.element(undefined, undefined, Header$ReactTemplate.make(closeWebchat, preferences, /* array */[])), ReasonReact.element(undefined, undefined, Input$ReactTemplate.make((function () {
+                        }, ReasonReact.element(undefined, undefined, Header$ReactTemplate.make(closeWebchat, preferences, /* array */[])), ReasonReact.element(undefined, undefined, Input$ReactTemplate.make((function (value) {
+                                    console.log(value);
                                     return /* () */0;
                                   }), undefined, undefined, /* array */[])));
             }),

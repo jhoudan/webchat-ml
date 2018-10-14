@@ -1,5 +1,6 @@
 'use strict';
 
+var Css = require("bs-css/src/Css.js");
 var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
@@ -8,14 +9,68 @@ var Js_option = require("bs-platform/lib/js/js_option.js");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
 var Js_primitive = require("bs-platform/lib/js/js_primitive.js");
 
+var input = Css.style(/* :: */[
+      Css.position(Css.relative),
+      /* :: */[
+        Css.bottom(Css.px(0)),
+        /* :: */[
+          Css.width(/* `percent */[
+                -119887163,
+                100
+              ]),
+          /* :: */[
+            Css.padding(Css.rem(1)),
+            /* :: */[
+              Css.color(Css.grey),
+              /* :: */[
+                Css.background(Css.white),
+                /* [] */0
+              ]
+            ]
+          ]
+        ]
+      ]
+    ]);
+
+var textArea = Css.style(/* :: */[
+      Css.width(/* `percent */[
+            -119887163,
+            100
+          ]),
+      /* :: */[
+        Css.maxHeight(Css.px(70)),
+        /* :: */[
+          Css.margin(/* zero */-789508312),
+          /* :: */[
+            Css.padding(/* zero */-789508312),
+            /* :: */[
+              Css.border(Css.px(0), /* none */-922086728, Css.transparent),
+              /* [] */0
+            ]
+          ]
+        ]
+      ]
+    ]);
+
+var Style = /* module */[
+  /* input */input,
+  /* textArea */textArea
+];
+
 var component = ReasonReact.reducerComponent("Input");
 
 function setTextareaRef(taRef, param) {
-  param[/* state */1][/* _textareaRef */1][0] = (taRef == null) ? undefined : Js_primitive.some(taRef);
-  return /* () */0;
+  var state = param[/* state */1];
+  state[/* _textareaRef */1][0] = (taRef == null) ? undefined : Js_primitive.some(taRef);
+  var match = state[/* _textareaRef */1][0];
+  if (match !== undefined) {
+    return Js_primitive.valFromOption(match).focus();
+  } else {
+    return /* () */0;
+  }
 }
 
-function make(_, placeholder, charLimit, _$1) {
+function make(onSubmit, placeholder, charLimit, _) {
   return /* record */[
           /* debugName */component[/* debugName */0],
           /* reactClassInternal */component[/* reactClassInternal */1],
@@ -28,13 +83,22 @@ function make(_, placeholder, charLimit, _$1) {
           /* shouldUpdate */component[/* shouldUpdate */8],
           /* render */(function (self) {
               var placeholder$1 = Js_option.getWithDefault("Write a reply", placeholder);
-              return React.createElement("div", undefined, React.createElement("textarea", {
+              return React.createElement("div", {
+                          className: input
+                        }, React.createElement("textarea", {
                               ref: Curry._1(self[/* handle */0], setTextareaRef),
+                              className: textArea,
+                              style: {
+                                resize: "none"
+                              },
                               placeholder: placeholder$1,
                               rows: 1,
                               value: self[/* state */1][/* value */0],
+                              onKeyDown: (function ($$event) {
+                                  return Curry._1(self[/* send */3], /* KeyDown */Block.__(1, [$$event.which]));
+                                }),
                               onChange: (function ($$event) {
-                                  return Curry._1(self[/* send */3], /* Change */[$$event.target.value]);
+                                  return Curry._1(self[/* send */3], /* Change */Block.__(0, [$$event.target.value]));
                                 })
                             }));
             }),
@@ -46,25 +110,38 @@ function make(_, placeholder, charLimit, _$1) {
             }),
           /* retainedProps */component[/* retainedProps */11],
           /* reducer */(function (action, state) {
-              var trimmedValue = $$String.trim(action[0]);
-              var value = Js_option.getWithDefault(trimmedValue, Js_option.map((function (limit) {
-                          var match = trimmedValue.length > limit;
-                          if (match) {
-                            return $$String.sub(trimmedValue, 0, limit);
-                          } else {
-                            return trimmedValue;
-                          }
-                        }), charLimit));
-              return /* Update */Block.__(0, [/* record */[
-                          /* value */value,
-                          /* _textareaRef */state[/* _textareaRef */1]
-                        ]]);
+              if (action.tag) {
+                if (action[0] !== 13) {
+                  return /* NoUpdate */0;
+                } else {
+                  Curry._1(onSubmit, $$String.trim(state[/* value */0]));
+                  return /* Update */Block.__(0, [/* record */[
+                              /* value */"",
+                              /* _textareaRef */state[/* _textareaRef */1]
+                            ]]);
+                }
+              } else {
+                var rawValue = action[0];
+                var value = Js_option.getWithDefault(rawValue, Js_option.map((function (limit) {
+                            var match = rawValue.length > limit;
+                            if (match) {
+                              return $$String.sub(rawValue, 0, limit);
+                            } else {
+                              return rawValue;
+                            }
+                          }), charLimit));
+                return /* Update */Block.__(0, [/* record */[
+                            /* value */value,
+                            /* _textareaRef */state[/* _textareaRef */1]
+                          ]]);
+              }
             }),
           /* jsElementWrapped */component[/* jsElementWrapped */13]
         ];
 }
 
+exports.Style = Style;
 exports.component = component;
 exports.setTextareaRef = setTextareaRef;
 exports.make = make;
-/* component Not a pure module */
+/* input Not a pure module */
