@@ -105,5 +105,6 @@ let make =
   render: _self =>
     <div className=Style.chat>
       <Header preferences onClick=closeWebchat />
+      <Input onSubmit={() => ()} />
     </div>,
 };

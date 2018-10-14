@@ -10,6 +10,7 @@ var Caml_array = require("bs-platform/lib/js/caml_array.js");
 var Caml_int32 = require("bs-platform/lib/js/caml_int32.js");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
 var Js_primitive = require("bs-platform/lib/js/js_primitive.js");
+var Input$ReactTemplate = require("../components/input.bs.js");
 var Header$ReactTemplate = require("../components/header.bs.js");
 var Messages$ReactTemplate = require("../models/messages.bs.js");
 
@@ -85,7 +86,9 @@ function make(preferences, credentials, conversation, getLastMessage, closeWebch
           /* render */(function () {
               return React.createElement("div", {
                           className: chat
-                        }, ReasonReact.element(undefined, undefined, Header$ReactTemplate.make(closeWebchat, preferences, /* array */[])));
+                        }, ReasonReact.element(undefined, undefined, Header$ReactTemplate.make(closeWebchat, preferences, /* array */[])), ReasonReact.element(undefined, undefined, Input$ReactTemplate.make((function () {
+                                    return /* () */0;
+                                  }), undefined, undefined, /* array */[])));
             }),
           /* initialState */(function () {
               return /* record */[
