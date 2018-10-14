@@ -18,7 +18,6 @@ module Style = {
       margin(`zero),
       padding(`zero),
       border(px(0), `none, transparent),
-      /* resize(none), */
     ]);
 };
 

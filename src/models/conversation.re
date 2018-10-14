@@ -18,23 +18,28 @@ module Encode = {
 };
 
 module Decode = {
-  type result = {
-    results: t,
-    message: string,
-  };
-
   let conversation = json =>
     Json.Decode.{
-      id: json |> field("id", string),
-      connector: json |> field("connector", string),
-      chatId: json |> field("chatId", string),
-      channel: json |> field("channel", string),
-    };
-
-  let result = json =>
-    Json.Decode.{
-      results: json |> field("results", conversation),
-      message: json |> field("message", string),
+      id:
+        json |> oneOf([field("id", string), at(["results", "id"], string)]),
+      connector:
+        json
+        |> oneOf([
+             field("connector", string),
+             at(["results", "connector"], string),
+           ]),
+      chatId:
+        json
+        |> oneOf([
+             field("chatId", string),
+             at(["results", "chatId"], string),
+           ]),
+      channel:
+        json
+        |> oneOf([
+             field("channel", string),
+             at(["results", "channel"], string),
+           ]),
     };
 };
 
@@ -52,9 +57,7 @@ module Api = {
       )
       |> then_(Fetch.Response.json)
       |> then_(json =>
-           json
-           |> Decode.result
-           |> (result => Some(result.results) |> resolve)
+           json |> Decode.conversation |> (conv => Some(conv) |> resolve)
          )
       |> catch(_err => resolve(None))
     );

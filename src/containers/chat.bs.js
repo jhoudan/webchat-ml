@@ -60,6 +60,17 @@ var Style = /* module */[/* chat */chat];
 var component = ReasonReact.reducerComponent("Chat");
 
 function make(preferences, credentials, conversation, getLastMessage, closeWebchat, _) {
+  var sendTextMessage = function (content) {
+    if (conversation !== undefined) {
+      Messages$ReactTemplate.Api[/* send */1](credentials, conversation[/* chatId */2], {
+            content: content,
+            type: "text"
+          });
+      return /* () */0;
+    } else {
+      return /* () */0;
+    }
+  };
   return /* record */[
           /* debugName */component[/* debugName */0],
           /* reactClassInternal */component[/* reactClassInternal */1],
@@ -89,10 +100,7 @@ function make(preferences, credentials, conversation, getLastMessage, closeWebch
           /* render */(function () {
               return React.createElement("div", {
                           className: chat
-                        }, ReasonReact.element(undefined, undefined, Header$ReactTemplate.make(closeWebchat, preferences, /* array */[])), ReasonReact.element(undefined, undefined, Input$ReactTemplate.make((function (value) {
-                                    console.log(value);
-                                    return /* () */0;
-                                  }), undefined, undefined, /* array */[])));
+                        }, ReasonReact.element(undefined, undefined, Header$ReactTemplate.make(closeWebchat, preferences, /* array */[])), ReasonReact.element(undefined, undefined, Input$ReactTemplate.make(sendTextMessage, undefined, undefined, /* array */[])));
             }),
           /* initialState */(function () {
               return /* record */[

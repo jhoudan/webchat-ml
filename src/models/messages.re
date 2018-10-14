@@ -1,32 +1,28 @@
-/* TODO */
-type t = {lol: int};
+type t = {
+  id: string,
+  attachment: Attachment.t,
+  fromBot: bool,
+};
 
 module Decode = {
-  type wrappedResult = {
+  type result = {
     messages: array(t),
     waitTime: int,
   };
 
-  type result = {
-    results: wrappedResult,
-    message: string,
-  };
-
-  /* TODO */
-  let message = json => Json.Decode.{lol: json |> field("lol", int)};
-
-  let messages = Json.Decode.array(message);
-
-  let wrappedResult = json =>
+  let message = json =>
     Json.Decode.{
-      messages: json |> field("messages", messages),
-      waitTime: json |> field("waitTime", int),
+      id: json |> field("id", string),
+      attachment:
+        json |> field("attachment", Attachment.Decode.attachmentVariant),
+      fromBot: json |> at(["participant", "isBot"], bool),
     };
 
   let result = json =>
     Json.Decode.{
-      results: json |> field("results", wrappedResult),
-      message: json |> field("message", string),
+      waitTime: json |> at(["results", "waitTime"], int),
+      messages:
+        json |> at(["results", "messages"], Json.Decode.array(message)),
     };
 };
 
@@ -50,13 +46,43 @@ module Api = {
         ),
       )
       |> then_(Fetch.Response.json)
-      |> then_(json =>
-           json |> Decode.result |> (result => result.results) |> resolve
-         )
-      |> then_(({waitTime, messages}: Decode.wrappedResult) =>
+      |> then_(json => json |> Decode.result |> resolve)
+      |> then_(({waitTime, messages}: Decode.result) =>
            resolve(Some((waitTime, messages)))
          )
       |> catch(_err => resolve(None))
     );
+  };
+
+  let send =
+      ({channelid, token}: Types.credentials, chatId: string, attachment) => {
+    let payload =
+      {
+        "chatId": chatId,
+        "message": {
+          "attachment": attachment,
+        },
+      }
+      ->Js.Json.stringifyAny
+      |> Js.Option.getWithDefault("");
+
+    let url = {j|https://api.recast.ai/connect/v1/webhook/$channelid|j};
+    Js.Promise.(
+      Fetch.fetchWithInit(
+        url,
+        Fetch.RequestInit.make(
+          ~method_=Post,
+          ~headers=
+            Fetch.HeadersInit.make({
+              "Authorization": token,
+              "Content-Type": "application/json",
+            }),
+          ~body=Fetch.BodyInit.make(payload),
+          (),
+        ),
+      )
+      |> then_(Fetch.Response.json)
+    )
+    |> ignore;
   };
 };

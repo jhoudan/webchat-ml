@@ -39,24 +39,70 @@ var Encode = /* module */[/* conversation */conversation];
 
 function conversation$1(json) {
   return /* record */[
-          /* id */Json_decode.field("id", Json_decode.string, json),
-          /* connector */Json_decode.field("connector", Json_decode.string, json),
-          /* chatId */Json_decode.field("chatId", Json_decode.string, json),
-          /* channel */Json_decode.field("channel", Json_decode.string, json)
+          /* id */Json_decode.oneOf(/* :: */[
+                (function (param) {
+                    return Json_decode.field("id", Json_decode.string, param);
+                  }),
+                /* :: */[
+                  Json_decode.at(/* :: */[
+                        "results",
+                        /* :: */[
+                          "id",
+                          /* [] */0
+                        ]
+                      ], Json_decode.string),
+                  /* [] */0
+                ]
+              ], json),
+          /* connector */Json_decode.oneOf(/* :: */[
+                (function (param) {
+                    return Json_decode.field("connector", Json_decode.string, param);
+                  }),
+                /* :: */[
+                  Json_decode.at(/* :: */[
+                        "results",
+                        /* :: */[
+                          "connector",
+                          /* [] */0
+                        ]
+                      ], Json_decode.string),
+                  /* [] */0
+                ]
+              ], json),
+          /* chatId */Json_decode.oneOf(/* :: */[
+                (function (param) {
+                    return Json_decode.field("chatId", Json_decode.string, param);
+                  }),
+                /* :: */[
+                  Json_decode.at(/* :: */[
+                        "results",
+                        /* :: */[
+                          "chatId",
+                          /* [] */0
+                        ]
+                      ], Json_decode.string),
+                  /* [] */0
+                ]
+              ], json),
+          /* channel */Json_decode.oneOf(/* :: */[
+                (function (param) {
+                    return Json_decode.field("channel", Json_decode.string, param);
+                  }),
+                /* :: */[
+                  Json_decode.at(/* :: */[
+                        "results",
+                        /* :: */[
+                          "channel",
+                          /* [] */0
+                        ]
+                      ], Json_decode.string),
+                  /* [] */0
+                ]
+              ], json)
         ];
 }
 
-function result(json) {
-  return /* record */[
-          /* results */Json_decode.field("results", conversation$1, json),
-          /* message */Json_decode.field("message", Json_decode.string, json)
-        ];
-}
-
-var Decode = /* module */[
-  /* conversation */conversation$1,
-  /* result */result
-];
+var Decode = /* module */[/* conversation */conversation$1];
 
 function create(param) {
   return fetch("https://api.recast.ai/connect/v1/webhook/" + (String(param[/* channelid */1]) + "/conversations"), Fetch.RequestInit[/* make */0](/* Post */2, {
@@ -64,8 +110,8 @@ function create(param) {
                         }, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined)(/* () */0)).then((function (prim) {
                     return prim.json();
                   })).then((function (json) {
-                  var result$1 = result(json);
-                  return Promise.resolve(result$1[/* results */0]);
+                  var conv = conversation$1(json);
+                  return Promise.resolve(conv);
                 })).catch((function () {
                 return Promise.resolve(undefined);
               }));

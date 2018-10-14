@@ -17,35 +17,28 @@ type t = {
 };
 
 module Decode = {
-  type result = {
-    results: t,
-    message: string,
-  };
-
   let preferences = json =>
     Json.Decode.{
-      accentColor: json |> field("accentColor", string),
-      complementaryColor: json |> field("complementaryColor", string),
-      botMessageColor: json |> field("botMessageColor", string),
+      accentColor: json |> at(["results", "accentColor"], string),
+      complementaryColor:
+        json |> at(["results", "complementaryColor"], string),
+      botMessageColor: json |> at(["results", "botMessageColor"], string),
       botMessageBackgroundColor:
-        json |> field("botMessageBackgroundColor", string),
-      backgroundColor: json |> field("backgroundColor", string),
-      headerLogo: json |> field("headerLogo", string),
-      headerTitle: json |> field("headerTitle", string),
-      botPicture: json |> field("botPicture", string),
-      userPicture: json |> field("userPicture", string),
-      onboardingMessage: json |> field("onboardingMessage", string),
-      expanderLogo: json |> field("expanderLogo", string),
-      expanderTitle: json |> field("expanderTitle", string),
-      conversationTimeToLive: json |> field("conversationTimeToLive", int),
-      openingType: json |> field("openingType", string),
-      welcomeMessage: json |> optional(field("welcomeMessage", string)),
-    };
-
-  let result = json =>
-    Json.Decode.{
-      results: json |> field("results", preferences),
-      message: json |> field("message", string),
+        json |> at(["results", "botMessageBackgroundColor"], string),
+      backgroundColor: json |> at(["results", "backgroundColor"], string),
+      headerLogo: json |> at(["results", "headerLogo"], string),
+      headerTitle: json |> at(["results", "headerTitle"], string),
+      botPicture: json |> at(["results", "botPicture"], string),
+      userPicture: json |> at(["results", "userPicture"], string),
+      onboardingMessage:
+        json |> at(["results", "onboardingMessage"], string),
+      expanderLogo: json |> at(["results", "expanderLogo"], string),
+      expanderTitle: json |> at(["results", "expanderTitle"], string),
+      conversationTimeToLive:
+        json |> at(["results", "conversationTimeToLive"], int),
+      openingType: json |> at(["results", "openingType"], string),
+      welcomeMessage:
+        json |> optional(at(["results", "welcomeMessage"], string)),
     };
 };
 
@@ -62,10 +55,7 @@ module Api = {
       )
       |> then_(Fetch.Response.json)
       |> then_(json =>
-           json
-           |> Decode.result
-           |> (result => Some(result.results))
-           |> resolve
+           json |> Decode.preferences |> (pref => Some(pref)) |> resolve
          )
       |> catch(_err => resolve(None))
     );
