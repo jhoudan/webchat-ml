@@ -50,7 +50,10 @@ module Api = {
       |> then_(({waitTime, messages}: Decode.result) =>
            resolve(Some((waitTime, messages)))
          )
-      |> catch(_err => resolve(None))
+      |> catch(err => {
+           Js.log(err);
+           resolve(None);
+         })
     );
   };
 

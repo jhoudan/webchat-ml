@@ -9,7 +9,7 @@ var Attachment$ReactTemplate = require("./attachment.bs.js");
 function message(json) {
   return /* record */[
           /* id */Json_decode.field("id", Json_decode.string, json),
-          /* attachment */Json_decode.field("attachment", Attachment$ReactTemplate.Decode[/* attachmentVariant */1], json),
+          /* attachment */Json_decode.field("attachment", Attachment$ReactTemplate.Decode[/* attachmentVariant */9], json),
           /* fromBot */Json_decode.at(/* :: */[
                   "participant",
                   /* :: */[
@@ -60,7 +60,8 @@ function poll(param, conversationId, lastMessageId) {
                               param[/* waitTime */1],
                               param[/* messages */0]
                             ]);
-                })).catch((function () {
+                })).catch((function (err) {
+                console.log(err);
                 return Promise.resolve(undefined);
               }));
 }
