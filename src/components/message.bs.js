@@ -3,7 +3,9 @@
 var Css = require("bs-css/src/Css.js");
 var React = require("react");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
+var Card$ReactTemplate = require("./card.bs.js");
 var Text$ReactTemplate = require("./text.bs.js");
+var Buttons$ReactTemplate = require("./buttons.bs.js");
 var Picture$ReactTemplate = require("./picture.bs.js");
 
 function message(fromBot) {
@@ -66,6 +68,12 @@ function make(message$1, _, _$1) {
                     break;
                 case 1 : 
                     tmp = ReasonReact.element(undefined, undefined, Picture$ReactTemplate.make(match[0][/* url */0], /* array */[]));
+                    break;
+                case 3 : 
+                    tmp = ReasonReact.element(undefined, undefined, Card$ReactTemplate.make(match[0], /* array */[]));
+                    break;
+                case 4 : 
+                    tmp = ReasonReact.element(undefined, undefined, Buttons$ReactTemplate.make(match[0], /* array */[]));
                     break;
                 default:
                   tmp = null;

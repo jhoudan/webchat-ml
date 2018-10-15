@@ -30,6 +30,11 @@ let make = (~message: Messages.t, ~preferences: Preferences.t, _children) => {
           switch (message.attachment) {
           | Text({value}) => <Text value />
           | Picture({url}) => <Picture url />
+          /* | QuickReplies(qr) => () */
+          | Card(card) => <Card card />
+          | Buttons(buttons) => <Buttons buttons />
+          /* | Carouselt(carousel) => () */
+          /* | List(wcList) => */
           | _ => ReasonReact.null
           }
         }
