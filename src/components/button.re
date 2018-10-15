@@ -22,7 +22,7 @@ module Style = {
 
 let component = ReasonReact.statelessComponent("Button");
 
-let make = (button: Attachment.button_, _children) => {
+let make = (~button: Attachment.button_, _children) => {
   ...component,
   render: _self => {
     let {title, value, type_}: Attachment.button_ = button;
