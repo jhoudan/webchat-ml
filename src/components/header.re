@@ -2,7 +2,7 @@ module Style = {
   open Css;
 
   let header =
-    style([display(flexBox), alignItems(center), borderRadius(px(0))]);
+    style([display(`flex), alignItems(center), borderRadius(px(0))]);
 
   let headerLogo =
     style([height(px(50)), width(px(50)), padding(px(10))]);

@@ -6,7 +6,7 @@ module Style = {
       position(fixed),
       right(px(10)),
       bottom(px(10)),
-      display(flexBox),
+      display(`flex),
       alignItems(center),
       padding2(~v=rem(0.5), ~h=rem(1.)),
       borderRadius(px(3)),

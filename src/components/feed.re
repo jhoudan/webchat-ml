@@ -4,7 +4,7 @@ module Style = {
   let feed =
     style([
       height(`percent(100.)),
-      display(flexBox),
+      display(`flex),
       flexDirection(column),
       overflowY(scroll),
       media(

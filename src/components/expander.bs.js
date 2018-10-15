@@ -11,7 +11,7 @@ var expander = Css.style(/* :: */[
         /* :: */[
           Css.bottom(Css.px(10)),
           /* :: */[
-            Css.display(Css.flexBox),
+            Css.display(/* flex */-1010954439),
             /* :: */[
               Css.alignItems(Css.center),
               /* :: */[

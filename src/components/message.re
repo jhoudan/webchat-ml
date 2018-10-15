@@ -4,13 +4,13 @@ module Style = {
   let message = fromBot =>
     style([
       position(relative),
-      display(flexBox),
+      display(`flex),
       justifyContent(fromBot ? flexStart : flexEnd),
     ]);
 
   let messageContent = fromBot =>
     style([
-      display(flexBox),
+      display(`flex),
       flexDirection(fromBot ? row : rowReverse),
       alignItems(center),
       margin2(rem(1.), rem(0.5)),

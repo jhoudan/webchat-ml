@@ -12,7 +12,7 @@ function message(fromBot) {
   return Css.style(/* :: */[
               Css.position(Css.relative),
               /* :: */[
-                Css.display(Css.flexBox),
+                Css.display(/* flex */-1010954439),
                 /* :: */[
                   Css.justifyContent(fromBot ? Css.flexStart : Css.flexEnd),
                   /* [] */0
@@ -23,7 +23,7 @@ function message(fromBot) {
 
 function messageContent(fromBot) {
   return Css.style(/* :: */[
-              Css.display(Css.flexBox),
+              Css.display(/* flex */-1010954439),
               /* :: */[
                 Css.flexDirection(fromBot ? Css.row : Css.rowReverse),
                 /* :: */[

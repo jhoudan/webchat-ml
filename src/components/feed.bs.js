@@ -12,7 +12,7 @@ var feed = Css.style(/* :: */[
             100
           ]),
       /* :: */[
-        Css.display(Css.flexBox),
+        Css.display(/* flex */-1010954439),
         /* :: */[
           Css.flexDirection(Css.column),
           /* :: */[

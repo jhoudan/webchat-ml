@@ -5,7 +5,7 @@ var React = require("react");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
 
 var header = Css.style(/* :: */[
-      Css.display(Css.flexBox),
+      Css.display(/* flex */-1010954439),
       /* :: */[
         Css.alignItems(Css.center),
         /* :: */[
