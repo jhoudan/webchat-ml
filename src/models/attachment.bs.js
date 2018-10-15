@@ -1,7 +1,6 @@
 'use strict';
 
 var Block = require("bs-platform/lib/js/block.js");
-var Pervasives = require("bs-platform/lib/js/pervasives.js");
 var Json_decode = require("@glennsl/bs-json/src/Json_decode.bs.js");
 
 function text(json) {
@@ -189,7 +188,13 @@ function attachmentVariant(param) {
                                       }), text, param);
                         });
                   default:
-                    return Pervasives.failwith("Unknow type: " + (String(type_) + ""));
+                    return (function (param) {
+                        return Json_decode.map((function (t) {
+                                      return /* Unknown */Block.__(7, [t]);
+                                    }), (function () {
+                                      return type_;
+                                    }), param);
+                      });
                 }
               }), (function (param) {
                 return Json_decode.field("type", Json_decode.string, param);

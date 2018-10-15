@@ -39,7 +39,8 @@ type t =
   | Card(card)
   | Buttons(buttons)
   | Carousel(carousel)
-  | List(wcList);
+  | List(wcList)
+  | Unknown(string);
 
 module Decode = {
   let text = json => Json.Decode.{value: json |> field("content", string)};
@@ -102,7 +103,7 @@ module Decode = {
            | "buttons" => buttons |> map(b => Buttons(b))
            | "carousel" => carousel |> map(c => Carousel(c))
            | "list" => wcList |> map(l => List(l))
-           | unknown => failwith({j|Unknow type: $unknown|j})
+           | unknown => (_ => type_) |> map(t => Unknown(t))
            }
          )
     );
