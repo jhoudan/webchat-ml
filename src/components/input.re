@@ -9,6 +9,7 @@ module Style = {
       padding(rem(1.)),
       color(grey),
       background(white),
+      boxShadow(~x=px(0), ~y=px(5), ~blur=px(40), lightgrey),
     ]);
 
   let textArea =
