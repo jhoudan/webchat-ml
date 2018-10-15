@@ -24,7 +24,10 @@ var input = Css.style(/* :: */[
               Css.color(Css.grey),
               /* :: */[
                 Css.background(Css.white),
-                /* [] */0
+                /* :: */[
+                  Css.boxShadow(Css.px(0), Css.px(5), Css.px(40), undefined, undefined, Css.lightgrey),
+                  /* [] */0
+                ]
               ]
             ]
           ]
