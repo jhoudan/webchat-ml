@@ -10,6 +10,7 @@ module Style = {
 
   let buttonsTitle =
     style([
+      margin(px(0)),
       maxWidth(px(270)),
       padding(rem(0.8)),
       borderTopLeftRadius(px(3)),
@@ -23,7 +24,8 @@ module Style = {
 let component = ReasonReact.statelessComponent("Buttons");
 
 let make = (~buttons: Attachment.buttons, _children) => {
-  let renderButton = (button: Attachment.button_) => <Button button />;
+  let renderButton = (index: int, button: Attachment.button_) =>
+    <Button button key={string_of_int(index)} />;
   {
     ...component,
     render: _self =>
@@ -34,7 +36,7 @@ let make = (~buttons: Attachment.buttons, _children) => {
           {ReasonReact.string(buttons.bTitle)}
         </p>
         <div className=Style.buttonsContainer>
-          {Array.map(renderButton, buttons.buttons) |> ReasonReact.array}
+          {Array.mapi(renderButton, buttons.buttons) |> ReasonReact.array}
         </div>
       </div>,
   };

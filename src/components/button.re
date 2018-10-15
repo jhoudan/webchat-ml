@@ -12,6 +12,7 @@ module Style = {
 
   let link =
     style([
+      display(block),
       padding(rem(0.5)),
       cursor(`pointer),
       textAlign(center),

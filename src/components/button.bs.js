@@ -22,16 +22,19 @@ var button = Css.style(/* :: */[
     ]);
 
 var link = Css.style(/* :: */[
-      Css.padding(Css.rem(0.5)),
+      Css.display(Css.block),
       /* :: */[
-        Css.cursor(/* pointer */-786317123),
+        Css.padding(Css.rem(0.5)),
         /* :: */[
-          Css.textAlign(Css.center),
+          Css.cursor(/* pointer */-786317123),
           /* :: */[
-            Css.fontWeight(700),
+            Css.textAlign(Css.center),
             /* :: */[
-              Css.color(Css.cornflowerblue),
-              /* [] */0
+              Css.fontWeight(700),
+              /* :: */[
+                Css.color(Css.cornflowerblue),
+                /* [] */0
+              ]
             ]
           ]
         ]

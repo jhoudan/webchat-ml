@@ -18,16 +18,19 @@ var buttons = Css.style(/* :: */[
     ]);
 
 var buttonsTitle = Css.style(/* :: */[
-      Css.maxWidth(Css.px(270)),
+      Css.margin(Css.px(0)),
       /* :: */[
-        Css.padding(Css.rem(0.8)),
+        Css.maxWidth(Css.px(270)),
         /* :: */[
-          Css.borderTopLeftRadius(Css.px(3)),
+          Css.padding(Css.rem(0.8)),
           /* :: */[
-            Css.borderTopRightRadius(Css.px(3)),
+            Css.borderTopLeftRadius(Css.px(3)),
             /* :: */[
-              Css.whiteSpace(/* preWrap */660870029),
-              /* [] */0
+              Css.borderTopRightRadius(Css.px(3)),
+              /* :: */[
+                Css.whiteSpace(/* preWrap */660870029),
+                /* [] */0
+              ]
             ]
           ]
         ]
@@ -48,8 +51,8 @@ var Style = /* module */[
 var component = ReasonReact.statelessComponent("Buttons");
 
 function make(buttons$1, _) {
-  var renderButton = function (button) {
-    return ReasonReact.element(undefined, undefined, Button$ReactTemplate.make(button, /* array */[]));
+  var renderButton = function (index, button) {
+    return ReasonReact.element(String(index), undefined, Button$ReactTemplate.make(button, /* array */[]));
   };
   return /* record */[
           /* debugName */component[/* debugName */0],
@@ -71,7 +74,7 @@ function make(buttons$1, _) {
                               }
                             }, buttons$1[/* bTitle */0]), React.createElement("div", {
                               className: buttonsContainer
-                            }, $$Array.map(renderButton, buttons$1[/* buttons */1])));
+                            }, $$Array.mapi(renderButton, buttons$1[/* buttons */1])));
             }),
           /* initialState */component[/* initialState */10],
           /* retainedProps */component[/* retainedProps */11],
