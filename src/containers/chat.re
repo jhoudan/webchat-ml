@@ -118,9 +118,14 @@ let make =
           ),
         )
       },
-    render: _self =>
+    render: self =>
       <div className=Style.chat>
         <Header preferences onClick=closeWebchat />
+        <Feed
+          preferences
+          messages={self.state.messages}
+          sendMessage={() => ()}
+        />
         <Input onSubmit=sendTextMessage />
       </div>,
   };
