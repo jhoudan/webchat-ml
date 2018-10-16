@@ -20,6 +20,7 @@
     "bs-fetch": "^0.3.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-slick": "^0.23.1",
     "reason-react": ">=0.4.0"
   },
   "devDependencies": {
