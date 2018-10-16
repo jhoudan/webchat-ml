@@ -35,14 +35,17 @@ let make = (~card: Attachment.card, _children) => {
          <img src=image className=Style.cardImage />
        )
     |> Js.Option.getWithDefault(ReasonReact.null);
+
   let renderSubtitle = (subtitleOpt: option(string)) =>
     subtitleOpt
     |> Js.Option.map((. subtitle) =>
          <p className=Style.cardSubtitle> {ReasonReact.string(subtitle)} </p>
        )
     |> Js.Option.getWithDefault(ReasonReact.null);
+
   let renderButton = (index: int, button: Attachment.button_) =>
     <Button button key={string_of_int(index)} />;
+
   {
     ...component,
     render: _self => {

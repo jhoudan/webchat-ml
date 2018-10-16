@@ -29,6 +29,7 @@ let make =
     ) => {
   let renderMessage = (message: Messages.t) =>
     <Message message preferences key={message.id} />;
+
   {
     ...component,
     initialState: () => (),

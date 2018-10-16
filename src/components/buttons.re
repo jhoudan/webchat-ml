@@ -26,6 +26,7 @@ let component = ReasonReact.statelessComponent("Buttons");
 let make = (~buttons: Attachment.buttons, _children) => {
   let renderButton = (index: int, button: Attachment.button_) =>
     <Button button key={string_of_int(index)} />;
+
   {
     ...component,
     render: _self =>

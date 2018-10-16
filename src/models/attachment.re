@@ -40,8 +40,7 @@ type t =
   | Buttons(buttons)
   | Carousel(carousel)
   | List(wcList)
-  | Unknown(string)
-and lol = | Test
+  | Unknown(string);
 
 module Decode = {
   let text = json => Json.Decode.{value: json |> field("content", string)};

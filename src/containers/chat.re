@@ -57,6 +57,7 @@ let make =
       /* TODO sendMessagePromise */
       ()
     };
+
   {
     ...component,
     initialState: () => {

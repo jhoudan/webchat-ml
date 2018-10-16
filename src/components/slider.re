@@ -1,4 +1,4 @@
-[@bs.module "react-slick"] external slider : ReasonReact.reactClass = "default";
+[@bs.module "react-slick"] external slider: ReasonReact.reactClass = "default";
 
 [@bs.deriving abstract]
 type jsProps = {
@@ -15,35 +15,36 @@ type jsProps = {
   nextArrow: Js.nullable(ReasonReact.reactClass),
 };
 
-let make = (
-  ~className,
-  ~arrows=true,
-  ~variableWidth=false,
-  ~speed=3000,
-  ~infinite=true,
-  ~draggable=true,
-  ~centerMode=false,
-  ~centerPadding="10px",
-  ~slidesToScroll=1,
-  ~prevArrow=?,
-  ~nextArrow=?,
-  children
-  ) =>
+let make =
+    (
+      ~className,
+      ~arrows=true,
+      ~variableWidth=false,
+      ~speed=3000,
+      ~infinite=true,
+      ~draggable=true,
+      ~centerMode=false,
+      ~centerPadding="10px",
+      ~slidesToScroll=1,
+      ~prevArrow=?,
+      ~nextArrow=?,
+      children,
+    ) =>
   ReasonReact.wrapJsForReason(
     ~reactClass=slider,
-    ~props=jsProps(
-      ~className,
-      ~arrows,
-      ~variableWidth,
-      ~speed,
-      ~infinite,
-      ~draggable,
-      ~centerMode,
-      ~centerPadding,
-      ~slidesToScroll,
-      ~prevArrow=Js.Nullable.fromOption(prevArrow),
-      ~nextArrow=Js.Nullable.fromOption(nextArrow)
-    ),
+    ~props=
+      jsProps(
+        ~className,
+        ~arrows,
+        ~variableWidth,
+        ~speed,
+        ~infinite,
+        ~draggable,
+        ~centerMode,
+        ~centerPadding,
+        ~slidesToScroll,
+        ~prevArrow=Js.Nullable.fromOption(prevArrow),
+        ~nextArrow=Js.Nullable.fromOption(nextArrow),
+      ),
     children,
   );
-

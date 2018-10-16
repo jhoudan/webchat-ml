@@ -51,6 +51,7 @@ let make = (~list_: Attachment.wcList, _children) => {
          <img src=image className=Style.elementImage />
        )
     |> Js.Option.getWithDefault(ReasonReact.null);
+
   let renderElementSubtitle = (subtitleOpt: option(string)) =>
     subtitleOpt
     |> Js.Option.map((. subtitle) =>
@@ -59,6 +60,7 @@ let make = (~list_: Attachment.wcList, _children) => {
          </p>
        )
     |> Js.Option.getWithDefault(ReasonReact.null);
+
   let renderElementButton = buttons =>
     buttons->Array.length == 0 ?
       ReasonReact.null :
@@ -80,6 +82,7 @@ let make = (~list_: Attachment.wcList, _children) => {
         | _ => ReasonReact.null
         };
       };
+
   let renderElement = (index, card: Attachment.card) =>
     <div className=Style.element key={string_of_int(index)}>
       {renderElementImage(card.imageUrl)}
@@ -89,6 +92,7 @@ let make = (~list_: Attachment.wcList, _children) => {
         {renderElementButton(card.buttons)}
       </div>
     </div>;
+
   {
     ...component,
     render: _self =>

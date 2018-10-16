@@ -74,11 +74,8 @@ let getOrCreate = (credentials: Types.credentials): Js.Promise.t(option(t)) => {
   let conv =
     getFromLocalStorage()
     |> Js.Option.andThen((. conversation) =>
-         if (conversation.channel == credentials.channelid) {
-           Some(conversation);
-         } else {
-           None;
-         }
+         conversation.channel == credentials.channelid ?
+           Some(conversation) : None
        );
 
   switch (conv) {
