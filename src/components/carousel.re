@@ -1,27 +1,33 @@
-module Style = {
-  open Css;
-
-  let carousel = style([]);
-};
-
 let component = ReasonReact.statelessComponent("Carousel");
 
-let make = (~cards: array(Attachment.card), _children) => {
-  /* let renderCard: (index, card) => { */
-  /*   () */
-  /* }; */
-  ...component,
-  render: _self =>
-    <div className=Style.carousel>
-      <Slider
-        className="Slider"
-        arrows=true
-        centerMode=true
-        centerPadding="10px"
-        speed=200
-        infinite=false
-        draggable=false
-        slidesToScroll=1
-      />
-    </div>,
+let make = (~carousel: Attachment.carousel, _children) => {
+  let renderCard = (index, card) =>
+    <div key={string_of_int(index)}> <Card card /> </div>;
+
+  {
+    ...component,
+    render: _self =>
+      <div>
+        <Slider
+          arrows=true
+          centerMode=true
+          centerPadding="10px"
+          speed=200
+          infinite=false
+          draggable=false
+          slidesToScroll=1
+          prevArrow={
+            <div>
+              <img src="https://cdn.recast.ai/webchat/arrow-back.svg" />
+            </div>
+          }
+          nextArrow={
+            <div>
+              <img src="https://cdn.recast.ai/webchat/arrow-forward.svg" />
+            </div>
+          }>
+          {Array.mapi(renderCard, carousel.cards) |> ReasonReact.array}
+        </Slider>
+      </div>,
+  };
 };

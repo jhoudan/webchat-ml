@@ -1,3 +1,14 @@
+module Style = {
+  open Css;
+
+  let slider =
+    style([
+      maxWidth(px(300)),
+      selector(".slick-list", [height(auto)]),
+      selector(".slick-prev:before", [important(display(none))]),
+    ]);
+};
+
 [@bs.module "react-slick"] external slider: ReasonReact.reactClass = "default";
 
 [@bs.deriving abstract]
@@ -11,13 +22,13 @@ type jsProps = {
   centerMode: bool,
   centerPadding: string,
   slidesToScroll: int,
-  prevArrow: Js.nullable(ReasonReact.reactClass),
-  nextArrow: Js.nullable(ReasonReact.reactClass),
+  prevArrow: Js.nullable(ReasonReact.reactElement),
+  nextArrow: Js.nullable(ReasonReact.reactElement),
 };
 
 let make =
     (
-      ~className,
+      ~className=Style.slider,
       ~arrows=true,
       ~variableWidth=false,
       ~speed=3000,
@@ -34,7 +45,7 @@ let make =
     ~reactClass=slider,
     ~props=
       jsProps(
-        ~className,
+        ~className="Slider " ++ className,
         ~arrows,
         ~variableWidth,
         ~speed,

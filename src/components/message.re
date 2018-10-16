@@ -13,7 +13,7 @@ module Style = {
       display(`flex),
       flexDirection(fromBot ? row : rowReverse),
       alignItems(center),
-      margin2(rem(1.), rem(0.5)),
+      margin2(~v=rem(1.), ~h=rem(0.5)),
       position(relative),
     ]);
 };
@@ -23,7 +23,7 @@ let component = ReasonReact.statelessComponent("Message");
 let make = (~message: Messages.t, ~preferences: Preferences.t, _children) => {
   ...component,
   render: _self => {
-    let {fromBot, id}: Messages.t = message;
+    let {fromBot}: Messages.t = message;
     <div className={Style.message(fromBot)}>
       <div className={Style.messageContent(fromBot)}>
         {
@@ -33,7 +33,7 @@ let make = (~message: Messages.t, ~preferences: Preferences.t, _children) => {
           /* | QuickReplies(qr) => () */
           | Card(card) => <Card card />
           | Buttons(buttons) => <Buttons buttons />
-          /* | Carouselt(carousel) => () */
+          | Carousel(carousel) => <Carousel carousel />
           /* | List(wcList) => */
           | _ => ReasonReact.null
           }
