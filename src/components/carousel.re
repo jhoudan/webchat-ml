@@ -1,8 +1,8 @@
 let component = ReasonReact.statelessComponent("Carousel");
 
-let make = (~carousel: Attachment.carousel, _children) => {
+let make = (~carousel: Attachment.carousel, ~sendMessage, _children) => {
   let renderCard = (index, card) =>
-    <div key={string_of_int(index)}> <Card card /> </div>;
+    <div key={string_of_int(index)}> <Card card sendMessage /> </div>;
 
   {
     ...component,

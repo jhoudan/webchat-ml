@@ -59,14 +59,11 @@ module Api = {
 
   let send =
       ({channelid, token}: Types.credentials, chatId: string, attachment) => {
+    let content = attachment |> Attachment.Encode.attachment;
+
     let payload =
-      {
-        "chatId": chatId,
-        "message": {
-          "attachment": attachment,
-        },
-      }
-      ->Js.Json.stringifyAny
+      {"chatId": chatId, "content": content}
+      |> Js.Json.stringifyAny
       |> Js.Option.getWithDefault("");
 
     let url = {j|https://api.recast.ai/connect/v1/webhook/$channelid|j};

@@ -23,9 +23,15 @@ module Style = {
 
 let component = ReasonReact.statelessComponent("Buttons");
 
-let make = (~buttons: Attachment.buttons, ~style: ReactDOMRe.style, _children) => {
+let make =
+    (
+      ~buttons: Attachment.buttons,
+      ~style: ReactDOMRe.style,
+      ~sendMessage,
+      _children,
+    ) => {
   let renderButton = (index: int, button: Attachment.button_) =>
-    <Button button key={string_of_int(index)} />;
+    <Button button sendMessage key={string_of_int(index)} />;
 
   {
     ...component,

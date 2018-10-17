@@ -21,14 +21,20 @@ module Style = {
     style([
       width(px(35)),
       height(px(35)),
-      margin4(`zero, `zero, `zero, rem(0.5)),
+      margin4(~top=`zero, ~right=`zero, ~bottom=`zero, ~left=rem(0.5)),
       alignSelf(`flexEnd),
     ]);
 };
 
 let component = ReasonReact.statelessComponent("Message");
 
-let make = (~message: Messages.t, ~preferences: Preferences.t, _children) => {
+let make =
+    (
+      ~message: Messages.t,
+      ~preferences: Preferences.t,
+      ~sendMessage,
+      _children,
+    ) => {
   ...component,
   render: _self => {
     let {fromBot}: Messages.t = message;
@@ -52,9 +58,9 @@ let make = (~message: Messages.t, ~preferences: Preferences.t, _children) => {
           | Text({value}) => <Text value style />
           | Picture({url}) => <Picture url />
           /* | QuickReplies(qr) => () */
-          | Card(card) => <Card card />
-          | Buttons(buttons) => <Buttons buttons style />
-          | Carousel(carousel) => <Carousel carousel />
+          | Card(card) => <Card card sendMessage />
+          | Buttons(buttons) => <Buttons buttons sendMessage style />
+          | Carousel(carousel) => <Carousel carousel sendMessage />
           /* | List(wcList) => */
           | _ => ReasonReact.null
           }

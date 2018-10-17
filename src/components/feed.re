@@ -28,7 +28,7 @@ let make =
       _children,
     ) => {
   let renderMessage = (message: Messages.t) =>
-    <Message message preferences key={message.id} />;
+    <Message message preferences sendMessage key={message.id} />;
 
   {
     ...component,

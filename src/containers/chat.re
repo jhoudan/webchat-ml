@@ -44,18 +44,11 @@ let make =
       ~closeWebchat,
       _children,
     ) => {
-  let sendTextMessage = (content: string) =>
+  let sendMessage = (attachment: Attachment.t) =>
     switch (conversation) {
     | Some({chatId}) =>
-      Messages.Api.send(
-        credentials,
-        chatId,
-        {"content": content, "type": "text"},
-      )
-      |> ignore
-    | None =>
-      /* TODO sendMessagePromise */
-      ()
+      Messages.Api.send(credentials, chatId, attachment) |> ignore
+    | None => ()
     };
 
   {
@@ -122,12 +115,8 @@ let make =
     render: self =>
       <div className=Style.chat>
         <Header preferences onClick=closeWebchat />
-        <Feed
-          preferences
-          messages={self.state.messages}
-          sendMessage=sendTextMessage
-        />
-        <Input onSubmit=sendTextMessage />
+        <Feed preferences messages={self.state.messages} sendMessage />
+        <Input onSubmit=sendMessage />
       </div>,
   };
 };

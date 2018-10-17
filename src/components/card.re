@@ -28,7 +28,7 @@ module Style = {
 
 let component = ReasonReact.statelessComponent("Card");
 
-let make = (~card: Attachment.card, _children) => {
+let make = (~card: Attachment.card, ~sendMessage, _children) => {
   let renderImage = (imageOpt: option(string)) =>
     imageOpt
     |> Js.Option.map((. image) =>
@@ -44,7 +44,7 @@ let make = (~card: Attachment.card, _children) => {
     |> Js.Option.getWithDefault(ReasonReact.null);
 
   let renderButton = (index: int, button: Attachment.button_) =>
-    <Button button key={string_of_int(index)} />;
+    <Button button sendMessage key={string_of_int(index)} />;
 
   {
     ...component,

@@ -23,7 +23,7 @@ module Style = {
 
 let component = ReasonReact.statelessComponent("Button");
 
-let make = (~button: Attachment.button_, _children) => {
+let make = (~button: Attachment.button_, ~sendMessage, _children) => {
   ...component,
   render: _self => {
     let {title, value, type_}: Attachment.button_ = button;
@@ -34,7 +34,9 @@ let make = (~button: Attachment.button_, _children) => {
       </a>
     | "phone_number"
     | "postback" =>
-      <div className=Style.button onClick=(_ => Js.log("TODO Clicked"))>
+      <div
+        className=Style.button
+        onClick=(_e => sendMessage(Attachment.Text({value: button.value})))>
         {ReasonReact.string(title)}
       </div>
     | _ => ReasonReact.null

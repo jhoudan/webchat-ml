@@ -53,7 +53,7 @@ let make =
   reducer: (action, state) =>
     switch (action) {
     | KeyDown(13) =>
-      onSubmit(state.value->String.trim);
+      onSubmit(Attachment.Text({value: state.value->String.trim}));
       ReasonReact.Update({...state, value: ""});
     | KeyDown(_) => ReasonReact.NoUpdate
     | Change(rawValue) =>

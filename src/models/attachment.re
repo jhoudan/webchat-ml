@@ -103,8 +103,22 @@ module Decode = {
            | "buttons" => buttons |> map(b => Buttons(b))
            | "carousel" => carousel |> map(c => Carousel(c))
            | "list" => wcList |> map(l => List(l))
-           | unknown => (_ => type_) |> map(t => Unknown(t))
+           | _unknown => (_ => type_) |> map(t => Unknown(t))
            }
          )
     );
+};
+
+module Encode = {
+  let encodeText = (text: text) =>
+    Json.Encode.(
+      object_([("type", string("text")), ("content", string(text.value))])
+    );
+
+  /* TODO Add more pattern (at least button) */
+  let attachment = attachment =>
+    switch (attachment) {
+    | Text(text) => encodeText(text)
+    | _ => Js.Json.null
+    };
 };

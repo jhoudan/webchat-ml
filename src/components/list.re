@@ -44,7 +44,7 @@ module Style = {
 
 let component = ReasonReact.statelessComponent("List");
 
-let make = (~list_: Attachment.wcList, _children) => {
+let make = (~list_: Attachment.wcList, ~sendMessage, _children) => {
   let renderElementImage = (imageOpt: option(string)) =>
     imageOpt
     |> Js.Option.map((. image) =>
@@ -102,7 +102,7 @@ let make = (~list_: Attachment.wcList, _children) => {
           list_.buttons->Array.length == 0 ?
             ReasonReact.null :
             <div className=Style.listButton>
-              <Button button={list_.buttons[0]} />
+              <Button sendMessage button={list_.buttons[0]} />
             </div>
         }
       </div>,
