@@ -62,7 +62,12 @@ module Api = {
     let content = attachment |> Attachment.Encode.attachment;
 
     let payload =
-      {"chatId": chatId, "content": content}
+      {
+        "chatId": chatId,
+        "message": {
+          "attachment": content,
+        },
+      }
       |> Js.Json.stringifyAny
       |> Js.Option.getWithDefault("");
 
