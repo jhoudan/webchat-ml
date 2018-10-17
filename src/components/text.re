@@ -12,12 +12,14 @@ module Style = {
 
 let component = ReasonReact.statelessComponent("Text");
 
-let make = (~value, _children) => {
+let make = (~value, ~style: ReactDOMRe.style, _children) => {
   ...component,
-  render: _self =>
+  render: _self => {
+    let innerStyle = ReactDOMRe.Style.make(~overflowWrap="break-word", ());
     <div
       className=Style.text
-      style={ReactDOMRe.Style.make(~overflowWrap="break-word", ())}>
+      style={ReactDOMRe.Style.combine(innerStyle, style)}>
       {ReasonReact.string(value)}
-    </div>,
+    </div>;
+  },
 };

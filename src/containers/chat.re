@@ -125,7 +125,7 @@ let make =
         <Feed
           preferences
           messages={self.state.messages}
-          sendMessage={() => ()}
+          sendMessage=sendTextMessage
         />
         <Input onSubmit=sendTextMessage />
       </div>,

@@ -16,6 +16,14 @@ module Style = {
       margin2(~v=rem(1.), ~h=rem(0.5)),
       position(relative),
     ]);
+
+  let messagePicture =
+    style([
+      width(px(35)),
+      height(px(35)),
+      margin4(`zero, `zero, `zero, rem(0.5)),
+      alignSelf(`flexEnd),
+    ]);
 };
 
 let component = ReasonReact.statelessComponent("Message");
@@ -24,15 +32,28 @@ let make = (~message: Messages.t, ~preferences: Preferences.t, _children) => {
   ...component,
   render: _self => {
     let {fromBot}: Messages.t = message;
+    let image = fromBot ? preferences.botPicture : preferences.userPicture;
+    let style =
+      ReactDOMRe.Style.make(
+        ~color=
+          fromBot ?
+            preferences.botMessageColor : preferences.complementaryColor,
+        ~backgroundColor=
+          fromBot ?
+            preferences.botMessageBackgroundColor : preferences.accentColor,
+        (),
+      );
+
     <div className={Style.message(fromBot)}>
       <div className={Style.messageContent(fromBot)}>
+        <img className=Style.messagePicture src=image />
         {
           switch (message.attachment) {
-          | Text({value}) => <Text value />
+          | Text({value}) => <Text value style />
           | Picture({url}) => <Picture url />
           /* | QuickReplies(qr) => () */
           | Card(card) => <Card card />
-          | Buttons(buttons) => <Buttons buttons />
+          | Buttons(buttons) => <Buttons buttons style />
           | Carousel(carousel) => <Carousel carousel />
           /* | List(wcList) => */
           | _ => ReasonReact.null

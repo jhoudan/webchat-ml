@@ -23,22 +23,24 @@ module Style = {
 
 let component = ReasonReact.statelessComponent("Buttons");
 
-let make = (~buttons: Attachment.buttons, _children) => {
+let make = (~buttons: Attachment.buttons, ~style: ReactDOMRe.style, _children) => {
   let renderButton = (index: int, button: Attachment.button_) =>
     <Button button key={string_of_int(index)} />;
 
   {
     ...component,
-    render: _self =>
+    render: _self => {
+      let innerStyle = ReactDOMRe.Style.make(~overflowWrap="break-word", ());
       <div className=Style.buttons>
         <p
           className=Style.buttonsTitle
-          style={ReactDOMRe.Style.make(~overflowWrap="break-word", ())}>
+          style={ReactDOMRe.Style.combine(innerStyle, style)}>
           {ReasonReact.string(buttons.bTitle)}
         </p>
         <div className=Style.buttonsContainer>
           {Array.mapi(renderButton, buttons.buttons) |> ReasonReact.array}
         </div>
-      </div>,
+      </div>;
+    },
   };
 };
