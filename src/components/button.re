@@ -19,6 +19,11 @@ module Style = {
       fontWeight(700),
       color(cornflowerblue),
     ]);
+
+  global(
+    " .RecastAppButton + .RecastAppButton",
+    [borderTop(px(1), solid, lightgrey)],
+  );
 };
 
 let component = ReasonReact.statelessComponent("Button");
@@ -29,13 +34,16 @@ let make = (~button: Attachment.button_, ~sendMessage, _children) => {
     let {title, value, type_}: Attachment.button_ = button;
     switch (type_) {
     | "web_url" =>
-      <a className=Style.link href=value target="_blank">
+      <a
+        className={"RecastAppButton " ++ Style.link}
+        href=value
+        target="_blank">
         {ReasonReact.string(title)}
       </a>
     | "phone_number"
     | "postback" =>
       <div
-        className=Style.button
+        className={"RecastAppButton " ++ Style.button}
         onClick=(_e => sendMessage(Attachment.Text({value: button.value})))>
         {ReasonReact.string(title)}
       </div>
