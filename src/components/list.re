@@ -9,21 +9,26 @@ module Style = {
       height(px(80)),
       margin(auto),
       padding(rem(0.2)),
+      borderRight(px(1), solid, lightgrey),
     ]);
 
   let elementContainer =
     style([
       display(`flex),
       flexDirection(column),
-      borderLeft(px(1), solid, lightgrey),
       width(`percent(100.)),
       padding(rem(0.2)),
     ]);
 
-  let elementTitle = style([fontWeight(700)]);
+  let elementTitle = style([fontWeight(700), margin(`zero)]);
 
   let elementSubtitle =
-    style([fontSize(px(14)), fontWeight(100), flexGrow(1)]);
+    style([
+      fontSize(px(14)),
+      fontWeight(100),
+      flexGrow(1),
+      margin(`zero),
+    ]);
 
   let elementButton =
     style([
@@ -37,7 +42,14 @@ module Style = {
     ]);
 
   let list_ =
-    style([border(px(1), solid, lightgrey), borderRadius(px(3))]);
+    style([
+      border(px(1), solid, lightgrey),
+      borderRadius(px(3)),
+      selector(
+        " .RecastAppListElement + .RecastAppListElement ",
+        [borderTop(px(1), solid, lightgrey)],
+      ),
+    ]);
 
   let listButton = style([borderTop(px(1), solid, lightgrey)]);
 };
@@ -48,7 +60,10 @@ let make = (~list_: Attachment.wcList, ~sendMessage, _children) => {
   let renderElementImage = (imageOpt: option(string)) =>
     imageOpt
     |> Js.Option.map((. image) =>
-         <img src=image className=Style.elementImage />
+         switch (image) {
+         | "" => ReasonReact.null
+         | src => <img src className=Style.elementImage />
+         }
        )
     |> Js.Option.getWithDefault(ReasonReact.null);
 
@@ -84,7 +99,9 @@ let make = (~list_: Attachment.wcList, ~sendMessage, _children) => {
       };
 
   let renderElement = (index, card: Attachment.card) =>
-    <div className=Style.element key={string_of_int(index)}>
+    <div
+      className={"RecastAppListElement " ++ Style.element}
+      key={string_of_int(index)}>
       {renderElementImage(card.imageUrl)}
       <div className=Style.elementContainer>
         <p className=Style.elementTitle> {ReasonReact.string(card.title)} </p>
