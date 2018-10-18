@@ -39,6 +39,13 @@ let make =
   render: _self => {
     let {fromBot}: Messages.t = message;
     let image = fromBot ? preferences.botPicture : preferences.userPicture;
+    let accentColor = preferences.accentColor;
+    let qrStyle =
+      ReactDOMRe.Style.make(
+        ~border={j|1px solid $accentColor|j},
+        ~color=accentColor,
+        (),
+      );
     let style =
       ReactDOMRe.Style.make(
         ~color=
@@ -57,11 +64,12 @@ let make =
           switch (message.attachment) {
           | Text({value}) => <Text value style />
           | Picture({url}) => <Picture url />
-          /* | QuickReplies(qr) => () */
+          | QuickReplies(quickReplies) =>
+            <QuickReplies quickReplies style qrStyle sendMessage />
           | Card(card) => <Card card sendMessage />
           | Buttons(buttons) => <Buttons buttons sendMessage style />
           | Carousel(carousel) => <Carousel carousel sendMessage />
-          /* | List(wcList) => */
+          | List(list_) => <List list_ sendMessage />
           | _ => ReasonReact.null
           }
         }
