@@ -15,10 +15,16 @@ module Style = {
 
   let container = style([flexGrow(1), paddingBottom(px(25))]);
 };
-type state =
-  | ();
+
+type state = {
+  messagesLen: int,
+  _feedRef: ref(option(Dom.element)),
+};
 
 let component = ReasonReact.reducerComponent("Feed");
+
+let setFeedRef = (feedRef, {ReasonReact.state}) =>
+  state._feedRef := Js.Nullable.toOption(feedRef);
 
 let make =
     (
@@ -32,10 +38,24 @@ let make =
 
   {
     ...component,
-    initialState: () => (),
+    initialState: () => {_feedRef: ref(None), messagesLen: 0},
+    willReceiveProps: self => {
+      ...self.state,
+      messagesLen: messages->Array.length,
+    },
+    didUpdate: ({oldSelf: _self, newSelf: self}) =>
+      switch (
+        self.state._feedRef^,
+        self.state.messagesLen != _self.state.messagesLen,
+      ) {
+      | (Some((feedRef: Dom.element)), true) =>
+        let elem = feedRef->ReactDOMRe.domElementToObj;
+        elem##scrollHeight |> float_of_int |> Bindings.setScrollTop(feedRef);
+      | (_, _) => ()
+      },
     reducer: ((), _state: state) => ReasonReact.NoUpdate,
-    render: _self =>
-      <div className=Style.feed>
+    render: self =>
+      <div ref={self.handle(setFeedRef)} className=Style.feed>
         <div className=Style.container>
           {Array.map(renderMessage, messages) |> ReasonReact.array}
         </div>

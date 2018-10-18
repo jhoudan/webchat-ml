@@ -97,7 +97,8 @@ let make =
                          when Array.length(messages) > 0 =>
                        self.send(MessagesReceived(messages));
                        waitTime * 1000;
-                     | Some((waitTime, _)) => waitTime * 1000
+                     /* | Some((waitTime, _)) => waitTime * 1000 */
+                     | Some((waitTime, _)) => 3000
                      | None => 1000
                      };
                    let timeoutId =
