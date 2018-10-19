@@ -4,7 +4,11 @@ module Style = {
   let quickReplies = style([display(`flex), flexDirection(column)]);
 
   let quickRepliesSlider =
-    style([marginTop(rem(0.5)), maxWidth(px(290))]);
+    style([
+      marginTop(rem(0.5)),
+      important(display(`none)),
+      maxWidth(px(290)),
+    ]);
 
   let quickRepliesButton =
     style([

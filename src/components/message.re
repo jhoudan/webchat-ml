@@ -57,7 +57,7 @@ let make =
         (),
       );
 
-    <div className={Style.message(fromBot)}>
+    <div className={"RecastAppMessage " ++ Style.message(fromBot)}>
       <div className={Style.messageContent(fromBot)}>
         <img className=Style.messagePicture src=image />
         {

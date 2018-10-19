@@ -14,6 +14,12 @@ module Style = {
     ]);
 
   let container = style([flexGrow(1), paddingBottom(px(25))]);
+
+  global(
+    " .RecastAppMessage:last-of-type ."
+    ++ QuickReplies.Style.quickRepliesSlider,
+    [important(display(`block))],
+  );
 };
 
 type state = {
