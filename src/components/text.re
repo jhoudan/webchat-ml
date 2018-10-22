@@ -19,7 +19,7 @@ let make = (~value, ~style: ReactDOMRe.style, _children) => {
     <div
       className=Style.text
       style={ReactDOMRe.Style.combine(innerStyle, style)}>
-      {ReasonReact.string(value)}
+      {ReasonReact.string(value->Utils.truncate(640))}
     </div>;
   },
 };

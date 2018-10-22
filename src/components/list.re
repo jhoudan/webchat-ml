@@ -71,7 +71,7 @@ let make = (~list_: Attachment.wcList, ~sendMessage, _children) => {
     subtitleOpt
     |> Js.Option.map((. subtitle) =>
          <p className=Style.elementSubtitle>
-           {ReasonReact.string(subtitle)}
+           {ReasonReact.string(subtitle->Utils.truncate(50))}
          </p>
        )
     |> Js.Option.getWithDefault(ReasonReact.null);
@@ -88,11 +88,11 @@ let make = (~list_: Attachment.wcList, ~sendMessage, _children) => {
             className=Style.elementButton
             target="_blank"
             rel="noopener noreferrer">
-            {ReasonReact.string(title)}
+            {ReasonReact.string(title->Utils.truncate(20))}
           </a>
         | "postback" =>
           <div className=Style.elementButton>
-            {ReasonReact.string(title)}
+            {ReasonReact.string(title->Utils.truncate(20))}
           </div>
         | _ => ReasonReact.null
         };
@@ -104,7 +104,9 @@ let make = (~list_: Attachment.wcList, ~sendMessage, _children) => {
       key={string_of_int(index)}>
       {renderElementImage(card.imageUrl)}
       <div className=Style.elementContainer>
-        <p className=Style.elementTitle> {ReasonReact.string(card.title)} </p>
+        <p className=Style.elementTitle>
+          {ReasonReact.string(card.title->Utils.truncate(25))}
+        </p>
         {renderElementSubtitle(card.subtitle)}
         {renderElementButton(card.buttons)}
       </div>

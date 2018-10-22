@@ -41,10 +41,14 @@ let make =
         <p
           className=Style.buttonsTitle
           style={ReactDOMRe.Style.combine(innerStyle, style)}>
-          {ReasonReact.string(buttons.bTitle)}
+          {ReasonReact.string(buttons.bTitle->Utils.truncate(640))}
         </p>
         <div className=Style.buttonsContainer>
-          {Array.mapi(renderButton, buttons.buttons) |> ReasonReact.array}
+          {
+            Js.Array.slice(~start=0, ~end_=3, buttons.buttons)
+            |> Array.mapi(renderButton)
+            |> ReasonReact.array
+          }
         </div>
       </div>;
     },

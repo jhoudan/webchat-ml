@@ -41,7 +41,7 @@ let make =
         style=qrStyle
         className=Style.quickRepliesButton
         onClick={_e => sendMessage(Attachment.Text({value: button.value}))}>
-        {ReasonReact.string(button.title)}
+        {ReasonReact.string(button.title->Utils.truncate(20))}
       </div>
     </div>;
   {

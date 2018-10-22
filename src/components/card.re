@@ -39,7 +39,9 @@ let make = (~card: Attachment.card, ~sendMessage, _children) => {
   let renderSubtitle = (subtitleOpt: option(string)) =>
     subtitleOpt
     |> Js.Option.map((. subtitle) =>
-         <p className=Style.cardSubtitle> {ReasonReact.string(subtitle)} </p>
+         <p className=Style.cardSubtitle>
+           {ReasonReact.string(subtitle->Utils.truncate(80))}
+         </p>
        )
     |> Js.Option.getWithDefault(ReasonReact.null);
 
@@ -53,14 +55,20 @@ let make = (~card: Attachment.card, ~sendMessage, _children) => {
       <div className=Style.card>
         {renderImage(imageUrl)}
         <div className=Style.cardTextContainer>
-          <p className=Style.cardTitle> {ReasonReact.string(title)} </p>
+          <p className=Style.cardTitle>
+            {ReasonReact.string(title->Utils.truncate(80))}
+          </p>
           {renderSubtitle(subtitle)}
         </div>
         {
           buttons->Array.length == 0 ?
             ReasonReact.null :
             <div className=Style.cardButtonsContainer>
-              {Array.mapi(renderButton, buttons) |> ReasonReact.array}
+              {
+                Js.Array.slice(~start=0, ~end_=3, buttons)
+                |> Array.mapi(renderButton)
+                |> ReasonReact.array
+              }
             </div>
         }
       </div>;
