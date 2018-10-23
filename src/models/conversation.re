@@ -3,6 +3,7 @@ type t = {
   connector: string,
   chatId: string,
   channel: string,
+  expire_at: float,
 };
 
 module Encode = {
@@ -13,6 +14,7 @@ module Encode = {
         ("connector", string(conversationObj.connector)),
         ("chatId", string(conversationObj.chatId)),
         ("channel", string(conversationObj.channel)),
+        ("expire_at", float(conversationObj.expire_at)),
       ])
     );
 };
@@ -40,6 +42,7 @@ module Decode = {
              field("channel", string),
              at(["results", "channel"], string),
            ]),
+      expire_at: json |> withDefault(0., field("expire_at", float)),
     };
 };
 
@@ -70,11 +73,14 @@ let getFromLocalStorage = (): option(t) =>
        json |> Decode.conversation |> (c => Some(c))
      );
 
-let getOrCreate = (credentials: Types.credentials): Js.Promise.t(option(t)) => {
+let getOrCreate =
+    (credentials: Types.credentials, timeToLive: float)
+    : Js.Promise.t(option(t)) => {
   let conv =
     getFromLocalStorage()
     |> Js.Option.andThen((. conversation) =>
-         conversation.channel == credentials.channelid ?
+         conversation.channel == credentials.channelid
+         && conversation.expire_at > Js.Date.now() ?
            Some(conversation) : None
        );
 
@@ -85,7 +91,13 @@ let getOrCreate = (credentials: Types.credentials): Js.Promise.t(option(t)) => {
     |> Js.Promise.then_(convOpt =>
          convOpt
          |> Js.Option.map((. conv) => {
-              let convString = conv |> Encode.conversation |> Json.stringify;
+              /* Conversation will expire in ten years if timeToLive = 0 */
+              let conversationTimeToLive =
+                timeToLive == 0. ? 87600. : timeToLive;
+              let expire_at =
+                Js.Date.now() +. conversationTimeToLive *. 3600000.;
+              let convString =
+                {...conv, expire_at} |> Encode.conversation |> Json.stringify;
               Dom.Storage.(
                 localStorage |> setItem("conversation", convString)
               );
