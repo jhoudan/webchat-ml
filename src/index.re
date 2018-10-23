@@ -15,11 +15,14 @@ switch (channelid, token) {
   Js.Promise.(
     Preferences.Api.fetch(credentials)
     |> then_(preferences => {
-         let preferences = Js.Option.getExn(preferences);
-         Conversation.getOrCreate(credentials)
+         let preferences: Preferences.t = Js.Option.getExn(preferences);
+         Conversation.getOrCreate(
+           credentials,
+           preferences.conversationTimeToLive,
+         )
          |> then_(conversation => resolve((preferences, conversation)));
        })
-    |> then_(((preferences, conversation)) => {
+    |> then_(((preferences: Preferences.t, conversation)) => {
          ReactDOMRe.renderToElementWithId(
            <App preferences credentials ?conversation />,
            "recast-webchat-div",

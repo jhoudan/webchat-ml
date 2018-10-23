@@ -11,7 +11,7 @@ type t = {
   onboardingMessage: string,
   expanderLogo: string,
   expanderTitle: string,
-  conversationTimeToLive: int,
+  conversationTimeToLive: float,
   openingType: string,
   welcomeMessage: option(string),
 };
@@ -35,7 +35,7 @@ module Decode = {
       expanderLogo: json |> at(["results", "expanderLogo"], string),
       expanderTitle: json |> at(["results", "expanderTitle"], string),
       conversationTimeToLive:
-        json |> at(["results", "conversationTimeToLive"], int),
+        json |> at(["results", "conversationTimeToLive"], float),
       openingType: json |> at(["results", "openingType"], string),
       welcomeMessage:
         json |> optional(at(["results", "welcomeMessage"], string)),
