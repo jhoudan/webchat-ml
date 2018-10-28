@@ -9,6 +9,7 @@ let (channelid, token) =
   | None => (None, None)
   };
 
+
 switch (channelid, token) {
 | (Some(channelid), Some(token)) =>
   let credentials: Types.credentials = {channelid, token};
